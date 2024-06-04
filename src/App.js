@@ -61,7 +61,7 @@ function App() {
               <Route path='/track/:id' element={<Track />}></Route>
             </Route>
             {/* page NotFound */}
-            <Route path='*' element={<NotFound />}></Route>
+            {/* <Route path='*' element={<NotFound />}></Route> */}
           </Routes>
         </div>
       </div>
