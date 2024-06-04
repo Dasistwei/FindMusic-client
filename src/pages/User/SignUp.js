@@ -1,0 +1,72 @@
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
+import { UserApi } from '../../Api/UserApi';
+import { LocalStorage } from "../../utils/LocalStorage";
+
+export const SignUp = () => {
+  const [formData, setFormData] = useState({
+    email: "esssmsmkke3e@wmai.com",
+    name: "kㄍi",
+    password: "000000s00",
+    confirmPassword: "000000s00"
+  })
+
+  const handleDataChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value
+    })
+  }
+
+  useEffect(() => {
+    const url = window.location.href
+    if (url.startsWith(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`)) {
+      const jwtToken = url.split(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`).pop()
+      LocalStorage.setAuthToken(jwtToken)
+    }
+  }, [])
+  const handleSignUpClick = (e) => {
+    e.preventDefault()
+    // console.log('form')
+    UserApi.signUp(formData)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.error(error));
+  }
+  const handleGoogleSignInClick = () => {
+    UserApi.signWithGoogle()
+  }
+  return (
+    <div className='signup mb-3 mt-3 template d-flex align-items-center row flex-column'>
+      <div className="col-md-5 mb-3">
+        <form action="">
+          <div>
+            <h3>註冊</h3>
+            <label htmlFor="name">Name</label>
+            <input type="text" id="name" placeholder='Enter Name' className='form-control' onChange={handleDataChange} />
+          </div>
+          <div className='mb-3'>
+            <label htmlFor="email">Email</label>
+            <input type="email" id="email" placeholder='Enter Email' onChange={handleDataChange} className='form-control' />
+          </div>
+          <div className='mb-3'>
+            <label htmlFor="password">Password</label>
+            <input type="password" id="password" placeholder='Enter password' onChange={handleDataChange} className='form-control' />
+          </div>
+          <div className='mb-3'>
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" placeholder='Enter password again' onChange={handleDataChange} className='form-control' />
+          </div>
+          <div className="d-grid">
+            <button className='btn btn-primary text-white' onClick={handleSignUpClick}>註冊</button>
+          </div>
+        </form>
+      </div>
+      <p>已經有帳號了？<Link to={'/sign_in'} className='text-decoration-none'>登入</Link></p>
+      <div className="">or</div>
+      <div className="d-grid col-md-5">
+        <button className='btn btn-primary text-white' onClick={handleGoogleSignInClick}>google 登入</button>
+      </div>
+    </div>
+  )
+}
