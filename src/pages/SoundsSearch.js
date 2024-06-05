@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import { SearchContext } from '../context/searchContext'
 import { AudDApi } from '../Api/AudDApi';
+import { RecorderApi } from '../Api/Recorder';
 import { useNavigate } from 'react-router-dom'
 import '../assets/index.css'
 
@@ -474,23 +475,28 @@ const filterTrack = (result) => {
     preview_url: result.preview_url,
   };
 }
-// console.log();
-// console.log(result.result.spotify);
 
 export const SoundsSearch = () => {
-  const [audioSrc, setAudioSrc] = useState('') //https://audd.tech/example.mp3
-  const [canRecord, setCanRecord] = useState(false)
+  const [permission, setPermission] = useState(false)
+  const [stream, setStream] = useState(null)
+
+  const mediaRecorder = useRef(null) //new MediaRecorder() object
+  const [recordingStatus, setRecordingStatus] = useState("inactive")
+  const [audioChunks, setAudioChunks] = useState([]) //chunks
+  const [audio, setAudio] = useState(null)  //blob:URL
+
+  const [soundsSearchState, setsoundsSearchState] = useState('')
+
+  const mimeType = "audio/mp3"
+
+
   const { track, setTrack } = useContext(SearchContext)
   const navigate = useNavigate()
-
-
-  let recorder = null;
-  let chunks = [];
-  // console.log('audioSrc', audioSrc)
-
+  console.log('soundsSearchState', soundsSearchState)
   useEffect(() => {
-    if (!audioSrc) return;
-    AudDApi.soundsSearch(audioSrc)
+    if (!audio) return
+    setsoundsSearchState('正在搜尋歌曲...')
+    AudDApi.soundsSearch(audio)
       .then(res => res.json())
       .then(res => {
         console.log('api', res)
@@ -498,77 +504,81 @@ export const SoundsSearch = () => {
           setTrack(filterTrack(res.result.spotify))
           navigate(`/track/${res.result.spotify.uri}`)
         }
+        setsoundsSearchState('找到了')
       })
-      .catch(err => console.log(err))
-  }, [audioSrc])
+      .catch(err => {
+        console.log(err)
+        setsoundsSearchState('搜尋失敗')
+      })
+  }, [audio])
 
-  const setupAudio = async () => {
+  //取得錄音權限
+  const getMicrophonePermissions = async () => {
     try {
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        const streamer = await navigator.mediaDevices.getUserMedia({ audio: true })
-        setupStream(streamer)
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  };
+      if (!"MediaRecorder" in window) {
+        return alert("The MediaRecorder API is not supported in your browser.")
+      };
 
-  setupAudio()
-  const setupStream = (stream) => {
-    recorder = new MediaRecorder(stream)
-    recorder.ondataavailable = e => {
-      chunks.push(e.data)
-      console.log(chunks)
-    }
-    recorder.onstop = async (e) => {
-      const blob = new Blob(chunks, { type: "audio/mp3" })
-      chunks = []
-      // 上传到服务器
-      const formData = new FormData();
-      formData.append('audio', blob, 'recording.mp3');
-      const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/upload/sounds`, {
-        method: 'POST',
-        body: formData
-      });
-      const { fileUrl } = await response.json()
-      setAudioSrc(fileUrl)
-    }
-    setCanRecord(true)
-  };
-  const startRecording = () => {
-    try {
-      if (!canRecord || !recorder) return
-      recorder.start()
+      const streamData = await navigator.mediaDevices.getUserMedia({ audio: true })
+      setPermission(true)
+      setStream(streamData)
     } catch (error) {
-      console.log(error)
+      console.log(error.message)
     }
-  };
+  }
+
+  const startRecording = async () => {
+    setRecordingStatus('recording')
+    //create media recorder in use of stream
+    const media = new MediaRecorder(stream, { type: mimeType })
+    //set media to ref
+    mediaRecorder.current = media
+    mediaRecorder.current.start()
+    let audioChunks = []
+    mediaRecorder.current.ondataavailable = (event) => {
+      if (typeof event.data === 'undefined' || event.data.size === 0) return
+      audioChunks.push(event.data)
+    }
+    setAudioChunks(audioChunks)
+  }
+
   const stopRecording = () => {
-    try {
-      if (!canRecord || !recorder) return
-      recorder.stop()
-    } catch (error) {
-      console.log(error)
+    setRecordingStatus("inactive")
+    mediaRecorder.current.stop()
+    mediaRecorder.current.onstop = () => {
+      const audioBlob = new Blob(audioChunks, { type: mimeType })
+      RecorderApi.getAudioUrl(setAudio, audioBlob)
+      setAudioChunks([])
     }
-  };
-  // console.log(isRecording)
+  }
+
   return (
     <div className='d-flex justify-content-center'>
-      <div className='align-self-center'>SoundsSearch</div>
-      <div className="mic-div border align-self-center">
-        <button type='button' className='mic-btn border-0 rounded-circle'>
-          <span className="mic-size material-symbols-outlined text-primary " >
-            mic
-          </span>
-        </button>
+      <div className="border">
+        <div className="mic-div border">
+          <button type='button' className='mic-btn border-0 rounded-circle'>
+            <span className="mic-size material-symbols-outlined text-primary " >
+              mic
+            </span>
+          </button>
+        </div>
+        <div className="audio-controls">
+          {!permission ? (
+            <button onClick={getMicrophonePermissions} type='button'>Get Microphone</button>
+          ) : null}
+          {permission && recordingStatus === 'inactive' ? (
+            <button onClick={startRecording} type='button'>Start Recording</button>
+          ) : null}
+          {permission && recordingStatus === 'recording' ? (
+            <button onClick={stopRecording} type='button'>Stop Recording</button>
+          ) : null}
+        </div>
+        {/* {audio ? (
+        <div className="audio-container">
+          <audio src={audio} controls></audio>
+        </div>
+      ) : null} */}
       </div>
-      {/* <button button className="mic-toggle" id="mic" onClick={startRecording} >
-          start
-        </button>
-        <button className="mic-toggle" id="mic" onClick={stopRecording}>
-          stop
-        </button>
-        <audio id="playback" src={audioSrc} controls></audio> */}
     </div>
   )
 }

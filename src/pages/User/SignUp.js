@@ -3,13 +3,22 @@ import { Link } from 'react-router-dom';
 import { UserApi } from '../../Api/UserApi';
 import { LocalStorage } from "../../utils/LocalStorage";
 
+const signUoData = {
+  email: "9900@wmai.com",
+  name: "kㄍi",
+  password: "000000s00",
+  confirmPassword: "000000s00"
+}
+// const response = {
+//   "status": "success",
+//   "user": {
+//     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NjA3NDIwZGI1OWI5ZDVjZWMzYTIzZiIsImlhdCI6MTcxNzU5NzIxNiwiZXhwIjoxNzE3NzcwMDE2fQ.Htj7tYUPzi98qa8rmwOOy9d1BAhX9JblOQazG25m734",
+//     "name": "kㄍi"
+//   }
+// }
+// console.log()
 export const SignUp = () => {
-  const [formData, setFormData] = useState({
-    email: "esssmsmkke3e@wmai.com",
-    name: "kㄍi",
-    password: "000000s00",
-    confirmPassword: "000000s00"
-  })
+  const [formData, setFormData] = useState()
 
   const handleDataChange = (e) => {
     setFormData({
@@ -20,17 +29,16 @@ export const SignUp = () => {
 
   useEffect(() => {
     const url = window.location.href
-    if (url.startsWith(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`)) {
-      const jwtToken = url.split(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`).pop()
-      LocalStorage.setAuthToken(jwtToken)
-    }
+    if (!url.startsWith(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`)) return
+    const jwtToken = url.split(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`).pop()
+    LocalStorage.setAuthToken(jwtToken)
   }, [])
   const handleSignUpClick = (e) => {
     e.preventDefault()
-    // console.log('form')
+    console.log('form', formData)
     UserApi.signUp(formData)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then((response) => response.json())
+      .then((result) => LocalStorage.setAuthToken(result.user.token))
       .catch((error) => console.error(error));
   }
   const handleGoogleSignInClick = () => {
