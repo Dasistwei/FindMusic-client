@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/App.css';
 import './assets/all.scss';
 import Input from './components/input';
-import { Player } from './components/spotify/Player';
+import { Player } from './components/track/Player';
 import { SignUp } from './pages/User/SignUp';
 import { SignOut } from './pages/User/SignOut';
 import { SignIn } from './pages/User/SignIn';
@@ -25,6 +25,7 @@ import { Artist, Track } from './pages/Music';
 import { Search } from './pages/Search';
 import { SoundsSearch } from './pages/SoundsSearch';
 import { Collection } from './pages/Collection';
+import { LikeList } from './pages/LikeList';
 import { User } from './pages/User/User';
 
 // redux
@@ -47,6 +48,7 @@ function App() {
               <Route path="/search" element={<Search />}></Route>
               <Route path="/sounds_search" element={<SoundsSearch />}></Route>
               <Route path="/collection" element={<Collection />}></Route>
+              <Route path="/likeList" element={<LikeList />}></Route>
 
               <Route path="/user" element={<User />}></Route>
 

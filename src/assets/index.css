@@ -88,3 +88,6 @@ code {
   right: -2rem; /* 调整位置 */
   bottom: -2rem; /* 调整位置 */
 }
+.cursor{
+  cursor: pointer;
+}

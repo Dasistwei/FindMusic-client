@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 export const TrackSearchResults = ({ track, setTrack }) => {
   const navigate = useNavigate()
   const handlePlay = () => {
-    console.log('track', track)
+    // console.log('track', track)
     setTrack(track);
     navigate(`/track/${track.uri}`)
   };

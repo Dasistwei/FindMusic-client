@@ -4,7 +4,7 @@ import { SearchContext } from '../context/searchContext'
 
 import { spotifyApi } from '../Api/spotifyApi';
 import { Container, Form } from 'react-bootstrap';
-import { TrackSearchResults } from '../components/spotify/TrackSearchResults';
+import { TrackSearchResults } from '../components/track/TrackSearchResults';
 
 
 export const Search = () => {

@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react'
-// import { LikeList } from '../components/track/Track';
+import { Track } from '../components/track/Track';
 import { TrackApi } from '../Api/TrackApi';
 import { LocalStorage } from "../utils/LocalStorage";
 import { SearchContext } from '../context/searchContext'
 
-export const Collection = () => {
+export const LikeList = () => {
   const [likeList, setLikeList] = useState([]);
   const userToken = LocalStorage.getAuthToken()
   const { setTrack } = useContext(SearchContext)
@@ -17,9 +17,9 @@ export const Collection = () => {
   return (
     <>
       <div>Collection</div>
-      {/* {likeList.map((track) => {
-        return <LikeList track={track} key={track.uri} setTrack={setTrack} url={track.preview_url} />
-      })} */}
+      {likeList.map((track) => {
+        return <Track track={track} key={track.uri} setTrack={setTrack} url={track.preview_url} />
+      })}
     </>
   )
 }

@@ -15,7 +15,10 @@ const Navbar = () => {
           <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/sounds_search'>音源搜尋</NavLink>
         </li>
         <li className='navbar-item'>
-          <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/collection'>已按讚的歌曲</NavLink>
+          <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/likeList'>已按讚的歌曲</NavLink>
+        </li>
+        <li className='navbar-item'>
+          <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/collection'>管理播放清單</NavLink>
         </li>
         <li className='navbar-item'>
           <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/sign_in'>登入</NavLink>
