@@ -3,14 +3,18 @@ import { SearchContext } from '../../context/searchContext'
 import { Link } from 'react-router-dom'
 import { LocalStorage } from "../../utils/LocalStorage"
 import { TrackApi } from '../../Api/TrackApi'
+import { CollectionApi } from '../../Api/CollectionApi'
 
 export default function Track() {
   const { track, setTrack, setChooseTrack } = useContext(SearchContext)
-  console.log('track', track)
+  const userToken = LocalStorage.getAuthToken()
+
   const handleHeartClick = () => {
-    const userToken = LocalStorage.getAuthToken()
-    // (jwt_token, track)
     TrackApi.userLike(userToken, track)
+  }
+  const handleAddClick = () => {
+    const trackId = track.uri.split(":").pop()
+    CollectionApi.addTrack(userToken, trackId)
   }
   return (
     <div>
@@ -25,6 +29,11 @@ export default function Track() {
         <div className="" onClick={handleHeartClick}>
           <span className="material-symbols-outlined cursor">
             favorite
+          </span>
+        </div>
+        <div className="" onClick={handleAddClick}>
+          <span className="material-symbols-outlined cursor">
+            add
           </span>
         </div>
         <button onClick={() => setChooseTrack(track)}>play</button>

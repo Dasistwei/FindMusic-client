@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 
 // //context
 import { SearchProvider } from './context/searchContext';
+import { AuthProvider } from './context/authContext';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,9 +19,11 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <SearchProvider>
-          <App />
-        </SearchProvider>
+        <AuthProvider>
+          <SearchProvider>
+            <App />
+          </SearchProvider>
+        </AuthProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

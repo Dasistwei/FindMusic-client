@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import { SearchContext } from '../context/searchContext'
+import { SearchContext } from '../../context/searchContext'
 
-import { spotifyApi } from '../Api/spotifyApi';
+import { spotifyApi } from '../../Api/spotifyApi';
 import { Container, Form } from 'react-bootstrap';
-import { TrackSearchResults } from '../components/track/TrackSearchResults';
+import { TrackSearchResults } from '../../components/track/TrackSearchResults';
 
-
-export const Search = () => {
+export default function Search() {
   const [search, setSearch] = useState('');
   const [accessToken, setAccessToken] = useState('');
   const [searchResults, setSearchResults] = useState([]);

@@ -16,8 +16,8 @@ export const LikeList = () => {
   }, [])
   return (
     <>
-      <div>Collection</div>
-      {likeList.map((track) => {
+      <div>LikeList</div>
+      {likeList && likeList.map((track) => {
         return <Track track={track} key={track.uri} setTrack={setTrack} url={track.preview_url} />
       })}
     </>

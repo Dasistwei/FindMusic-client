@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
-import { SearchContext } from '../context/searchContext'
-import { AudDApi } from '../Api/AudDApi';
-import { RecorderApi } from '../Api/Recorder';
+import { SearchContext } from '../../context/searchContext'
+import { AudDApi } from '../../Api/AudDApi';
+import { RecorderApi } from '../../Api/Recorder';
 import { useNavigate } from 'react-router-dom'
-import '../assets/index.css'
+import '../../assets/index.css'
 
 const result = {
   "status": "success",
@@ -476,7 +476,7 @@ const filterTrack = (result) => {
   };
 }
 
-export const SoundsSearch = () => {
+export default function SoundsSearch() {
   const [permission, setPermission] = useState(false)
   const [stream, setStream] = useState(null)
 

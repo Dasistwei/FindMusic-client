@@ -5,14 +5,15 @@ import './assets/App.css';
 import './assets/all.scss';
 import Input from './components/input';
 import { Player } from './components/track/Player';
-import { SignUp } from './pages/User/SignUp';
-import { SignOut } from './pages/User/SignOut';
-import { SignIn } from './pages/User/SignIn';
-import { ProtectedRoutes } from './pages/User/ProtectedRoutes';
+
+import { SignUp, SignIn } from './pages/User';
+
+import { ProtectedRoutes } from './pages/Other/ProtectedRoutes';
 
 import Navbar from './components/Navbar';
 import { Routes, Route } from 'react-router-dom';
-import { Home, NotFound } from './pages';
+import { Home } from './pages/Other';
+import { NotFound } from './pages/Other';
 import {
   AlbumLayout,
   AlbumIndex,
@@ -21,25 +22,24 @@ import {
 } from './pages/Album';
 import { Artist, Track } from './pages/Music';
 
+import { Search, SoundsSearch } from './pages/Search';
 
-import { Search } from './pages/Search';
-import { SoundsSearch } from './pages/SoundsSearch';
-import { Collection } from './pages/Collection';
+import { Collection, CollectionList } from './pages/Collection';
+
 import { LikeList } from './pages/LikeList';
 import { User } from './pages/User/User';
 
 // redux
 import { Counter } from "./features/counter/Counter";
-
 function App() {
 
   return (
-    <div className="App bg-light">
+    <div className="App bg-light container-fluid">
       <div className="main-content row flex-grow-1">
-        <div className="col-md-3 border navbar-container">
+        <div className="col-md-2 border navbar-container">
           <Navbar />
         </div>
-        <div className="col-md-9 border container content-container">
+        <div className="col-md-10 border container content-container">
           <Routes>
             <Route path="/sign_in" element={<SignIn />}></Route>
             <Route path="/sign_up" element={<SignUp />}></Route>
@@ -47,12 +47,15 @@ function App() {
               <Route path="/" element={<Home />}></Route> {/* <Counter /> */}
               <Route path="/search" element={<Search />}></Route>
               <Route path="/sounds_search" element={<SoundsSearch />}></Route>
-              <Route path="/collection" element={<Collection />}></Route>
+              <Route path="/collection" element={<CollectionList />}>
+                {/* <Route path=":id" element={<Collection />}></Route> */}
+              </Route>
+              <Route path="collection/:id" element={<Collection />}></Route>
               <Route path="/likeList" element={<LikeList />}></Route>
 
               <Route path="/user" element={<User />}></Route>
 
-              <Route path="/sign_out" element={<SignOut />}></Route>
+              <Route path="/sign_out" ></Route>
 
               <Route path="/album" element={<AlbumLayout />}>
                 <Route index element={<AlbumIndex />}></Route>
@@ -67,7 +70,7 @@ function App() {
           </Routes>
         </div>
       </div>
-      <div className="row">
+      <div className="row fixed-bottom">
         <div className="position-absolute col-12 bottom-0 border">
           <Player />
         </div>

@@ -8,6 +8,9 @@ const LocalStorage = {
   // 從 localStorage 讀取 token
   getAuthToken: () => {
     return localStorage.getItem(JWT_TOKEN);
+  },
+  removeAuthToken: () => {
+    return localStorage.removeItem(JWT_TOKEN);
   }
 }
 export { LocalStorage }

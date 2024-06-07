@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import { UserApi } from '../../Api/UserApi';
 import { LocalStorage } from "../../utils/LocalStorage";
-
-const signUoData = {
-  email: "9900@wmai.com",
-  name: "kㄍi",
-  password: "000000s00",
-  confirmPassword: "000000s00"
-}
+import { AuthContext } from "../../context/authContext"
 // const response = {
 //   "status": "success",
 //   "user": {
@@ -17,9 +11,11 @@ const signUoData = {
 //   }
 // }
 // console.log()
-export const SignUp = () => {
+export default function SignUp() {
   const [formData, setFormData] = useState()
-
+  const { isAuthenticate, setIsAuthenticate } = useContext(AuthContext)
+  const navigate = useNavigate();
+  console.log('isAuthenticate', isAuthenticate)
   const handleDataChange = (e) => {
     setFormData({
       ...formData,
@@ -35,10 +31,14 @@ export const SignUp = () => {
   }, [])
   const handleSignUpClick = (e) => {
     e.preventDefault()
-    console.log('form', formData)
     UserApi.signUp(formData)
       .then((response) => response.json())
-      .then((result) => LocalStorage.setAuthToken(result.user.token))
+      .then((result) => {
+        LocalStorage.setAuthToken(result.user.token)
+        setIsAuthenticate(true)
+        setFormData('')
+        navigate('/');
+      })
       .catch((error) => console.error(error));
   }
   const handleGoogleSignInClick = () => {

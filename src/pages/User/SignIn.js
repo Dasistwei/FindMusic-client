@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { UserApi } from '../../Api/UserApi';
 import { LocalStorage } from "../../utils/LocalStorage";
+import { AuthContext } from "../../context/authContext"
 
-
-export const SignIn = () => {
-  const [formData, setFormData] = useState({
-    email: "esssmmkkee@wmai.com",
-    password: "000000s00"
-  })
-
+export default function SignIn() {
+  const [formData, setFormData] = useState()
+  const { isAuthenticate, setIsAuthenticate } = useContext(AuthContext)
   const navigate = useNavigate();
 
   useEffect(() => {
     const url = window.location.href
+    console.log('url', url)
     if (!url.startsWith(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`)) return
     const jwtToken = url.split(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`).pop()
+    console.log('jwtToken', jwtToken)
     LocalStorage.setAuthToken(jwtToken)
+    setIsAuthenticate(true)
     navigate('/');
   }, [])
 
@@ -27,12 +27,16 @@ export const SignIn = () => {
       [e.target.id]: e.target.value
     })
   }
-  const handleSignUpClick = (e) => {
+  const handleSignInClick = (e) => {
     e.preventDefault()
-    // console.log('form')
     UserApi.signIn(formData)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then((response) => response.json())
+      .then((result) => {
+        LocalStorage.setAuthToken(result.user.token)
+        setIsAuthenticate(true)
+        setFormData('')
+        navigate('/');
+      })
       .catch((error) => console.error(error));
   }
   const handleGoogleSignInClick = () => {
@@ -41,8 +45,8 @@ export const SignIn = () => {
   return (
     <div className='signup mb-3 mt-3 template d-flex align-items-center row flex-column'>
       <div className="col-md-5 mb-3">
+        <h3>登入</h3>
         <form action="">
-          <h3>登入</h3>
           <div className='mb-3'>
             <label htmlFor="email">Email</label>
             <input type="email" id="email" placeholder='Enter Email' onChange={handleDataChange} className='form-control' />
@@ -52,10 +56,11 @@ export const SignIn = () => {
             <input type="password" id="password" placeholder='Enter password' onChange={handleDataChange} className='form-control' />
           </div>
           <div className="d-grid">
-            <button className='btn btn-primary text-white' onClick={handleSignUpClick}>登入</button>
+            <button className='btn btn-primary text-white' onClick={handleSignInClick}>登入</button>
           </div>
         </form>
       </div>
+
       <p>還沒有帳號？<Link to={'/sign_up'} className='text-decoration-none'>註冊</Link></p>
       <div className="">or</div>
       <div className="d-grid col-md-5">
