@@ -41,14 +41,47 @@ const CollectionApi = {
     // return fetch(`${process.env.REACT_APP_SERVER_URL}/collection`, requestOptions)
     console.log('get collection')
   },
-  addTrack: (jwt_token, trackId) => {
+  editCollection: (jwt_token, name, collectionId) => {
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${jwt_token}`);
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      name
+    });
+
+    const requestOptions = {
+      method: "PUT",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
+    };
+    return fetch(`${process.env.REACT_APP_SERVER_URL}/collections/${collectionId}`, requestOptions)
+  },
+  deleteCollection: (jwt_token, collectionId) => {
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${jwt_token}`);
+
+    const raw = "";
+
+    const requestOptions = {
+      method: "DELETE",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
+    };
+
+    return fetch(`${process.env.REACT_APP_SERVER_URL}/collections/${collectionId}`, requestOptions)
+  },
+
+  addTrack: (jwt_token, trackId, collectionId) => {
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${jwt_token}`);
     myHeaders.append("Content-Type", "application/json");
 
     const raw = JSON.stringify({
       trackId,
-      "collectionId": "6661e38725715e04b9ddec70"
+      collectionId
     });
 
     const requestOptions = {
@@ -58,9 +91,6 @@ const CollectionApi = {
       redirect: "follow"
     };
     return fetch(`${process.env.REACT_APP_SERVER_URL}/collections/add_track`, requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
   }
 }
 export { CollectionApi }

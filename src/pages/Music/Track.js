@@ -10,11 +10,19 @@ export default function Track() {
   const userToken = LocalStorage.getAuthToken()
 
   const handleHeartClick = () => {
-    TrackApi.userLike(userToken, track)
+    const trackId = track.uri.split(":").pop()
+    TrackApi.userLike(userToken, track, trackId)
   }
   const handleAddClick = () => {
     const trackId = track.uri.split(":").pop()
-    CollectionApi.addTrack(userToken, trackId)
+    const collectionId = "6664429ddfbcdd394d037091"
+    CollectionApi.addTrack(userToken, trackId, collectionId)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result)
+        // window.location.reload()
+      })
+      .catch((error) => console.error(error));
   }
   return (
     <div>

@@ -1,5 +1,5 @@
 const TrackApi = {
-  userLike: (jwt_token, track) => {
+  userLike: (jwt_token, track, trackId) => {
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${jwt_token}`);
     myHeaders.append("Content-Type", "application/json");
@@ -20,7 +20,7 @@ const TrackApi = {
       redirect: "follow"
     };
 
-    return fetch(`${process.env.REACT_APP_SERVER_URL}/tracks/${track._id}/likes`, requestOptions)
+    return fetch(`${process.env.REACT_APP_SERVER_URL}/tracks/${trackId}/likes`, requestOptions)
       .then((response) => response.json())
       .then((result) => console.log(result))
       .catch((error) => console.error(error));
