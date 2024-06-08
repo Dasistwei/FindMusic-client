@@ -11,10 +11,8 @@ export default function SignIn() {
 
   useEffect(() => {
     const url = window.location.href
-    console.log('url', url)
     if (!url.startsWith(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`)) return
     const jwtToken = url.split(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`).pop()
-    console.log('jwtToken', jwtToken)
     LocalStorage.setAuthToken(jwtToken)
     setIsAuthenticate(true)
     navigate('/');

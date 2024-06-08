@@ -11,6 +11,7 @@ import { SignUp, SignIn } from './pages/User';
 import { ProtectedRoutes } from './pages/Other/ProtectedRoutes';
 
 import Navbar from './components/Navbar';
+import PhoneNavbar from './components/PhoneNavbar';
 import { Routes, Route } from 'react-router-dom';
 import { Home } from './pages/Other';
 import { NotFound } from './pages/Other';
@@ -36,7 +37,7 @@ function App() {
   return (
     <div className="App bg-light container-fluid">
       <div className="main-content row flex-grow-1">
-        <div className="col-md-2 border navbar-container">
+        <div className=" d-none d-md-block col-md-2 border navbar-container">
           <Navbar />
         </div>
         <div className="col-md-10 border container content-container">
@@ -71,8 +72,11 @@ function App() {
         </div>
       </div>
       <div className="row fixed-bottom">
-        <div className="position-absolute col-12 bottom-0 border">
+        <div className=" col-12 bottom-0 border">
           <Player />
+        </div>
+        <div className=" d-block d-md-none bottom-0 col-12 ">
+          <PhoneNavbar />
         </div>
       </div>
     </div>

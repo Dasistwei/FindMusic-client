@@ -52,7 +52,7 @@ export default function Search() {
   }, [search, accessToken]);
   return (
     <>
-      <Container className="p-2 border d-flex flex-column" style={{ height: '90vh' }}>
+      <Container className="p-2 d-flex flex-column" style={{ height: '90vh' }}>
         <Form.Control
           type="search"
           placeholder="Search Songs/Artists"

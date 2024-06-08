@@ -52,10 +52,8 @@ export default function CollectionList() {
         <ul className='list-unstyled border'>
           {collectionList.map((collection) => {
             return (
-              <li key={collection.id}>
-                <Link to={collection.id}>
-                  <Link to={`/collection/${collection._id}`}>{collection.name}</Link>
-                </Link>
+              <li key={collection._id}>
+                <Link to={`/collection/${collection._id}`}>{collection.name}</Link>
               </li>
             );
           })}

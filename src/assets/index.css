@@ -91,3 +91,6 @@ code {
 .cursor{
   cursor: pointer;
 }
+.phoneNav-icon-size{
+  font-size: 2rem;
+}

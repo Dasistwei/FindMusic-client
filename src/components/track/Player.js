@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { SearchContext } from '../../context/searchContext';
+
 export const Player = () => {
   const { chooseTrack } = useContext(SearchContext)
   return (
