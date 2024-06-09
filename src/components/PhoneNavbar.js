@@ -4,7 +4,7 @@ import { LocalStorage } from "../utils/LocalStorage"
 import { AuthContext } from "../context/authContext"
 
 const PhoneNavbar = () => {
-  const textColor = 'text-danger';
+  const textColor = 'text-info';
   const { isAuthenticate, setIsAuthenticate } = useContext(AuthContext)
 
   const handleSignOutClick = () => {
@@ -12,7 +12,7 @@ const PhoneNavbar = () => {
     window.location.reload()
   }
   return (
-    <ul className='nav d-flex justify-content-evenly bg-light'>
+    <ul className='nav d-flex justify-content-evenly'>
       <li className='navbar-item'>
         <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/'>
           <span className="material-symbols-outlined phoneNav-icon-size">

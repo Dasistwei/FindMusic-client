@@ -1,3 +1,11 @@
+:root {
+  --primary-color: #36e2ec;
+  --secondary-color: rgb(97, 159, 195);
+  /* --font-size: 16px;
+  --border-radius: 5px; */
+}
+
+
 html, body, #root, .App {
   height: 100%;
   margin: 0;
@@ -93,4 +101,27 @@ code {
 }
 .phoneNav-icon-size{
   font-size: 2rem;
+}
+
+.loader {
+  width: 1.5rem; 
+  height: 1.5rem;
+  aspect-ratio: 1;
+  --c: no-repeat linear-gradient(var(--secondary-color) 0 0);
+  background: 
+    var(--c) 0%   100%,
+    var(--c) 50%  100%,
+    var(--c) 100% 100%;
+    background-size: 20% 100%, 20% 80%, 20% 60%; /* 初始三条线 */
+}
+@keyframes l2 {
+  0%  {background-size: 20% 100%,20% 100%,20% 100%}
+  20% {background-size: 20% 60% ,20% 100%,20% 100%}
+  40% {background-size: 20% 80% ,20% 60% ,20% 100%}
+  60% {background-size: 20% 100%,20% 80% ,20% 60% }
+  80% {background-size: 20% 100%,20% 100%,20% 80% }
+  100%{background-size: 20% 100%,20% 100%,20% 100%}
+}
+.loader.active{
+ animation: l2 1s infinite linear;
 }

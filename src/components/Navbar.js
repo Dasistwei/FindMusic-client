@@ -4,11 +4,12 @@ import { LocalStorage } from "../utils/LocalStorage"
 import { AuthContext } from "../context/authContext"
 
 const Navbar = () => {
-  const textColor = 'text-danger';
+  const textColor = 'text-primary';
   const { isAuthenticate, setIsAuthenticate } = useContext(AuthContext)
 
   const handleSignOutClick = () => {
     LocalStorage.removeAuthToken()
+    setIsAuthenticate(false)
     window.location.reload()
   }
   return (

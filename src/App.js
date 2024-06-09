@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // 外部套件
 import './assets/App.css';
@@ -30,12 +30,14 @@ import { Collection, CollectionList } from './pages/Collection';
 import { LikeList } from './pages/LikeList';
 import { User } from './pages/User/User';
 
+import { AuthContext } from "./context/authContext"
+
 // redux
 import { Counter } from "./features/counter/Counter";
 function App() {
-
+  const { isAuthenticate, setIsAuthenticate } = useContext(AuthContext)
   return (
-    <div className="App bg-light container-fluid">
+    <div className="App container-fluid text-secondary fw-bold bg-light">
       <div className="main-content row flex-grow-1">
         <div className=" d-none d-md-block col-md-2 border navbar-container">
           <Navbar />
@@ -72,10 +74,12 @@ function App() {
         </div>
       </div>
       <div className="row fixed-bottom">
-        <div className=" col-12 bottom-0 border">
-          <Player />
-        </div>
-        <div className=" d-block d-md-none bottom-0 col-12 ">
+        {isAuthenticate && (
+          <div className=" col-12 bottom-0 border bg-light">
+            <Player />
+          </div>
+        )}
+        <div className=" d-block d-md-none bottom-0 col-12 bg-dark ">
           <PhoneNavbar />
         </div>
       </div>
