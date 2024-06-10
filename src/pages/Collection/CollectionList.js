@@ -79,7 +79,7 @@ export default function CollectionList() {
           </tr>
         </thead>
         <tbody>
-          {collectionList.map((collection, index) => {
+          {collectionList && collectionList.map((collection, index) => {
             return (
               <tr key={collection._id}>
                 <th scope="row">{index + 1}</th>
