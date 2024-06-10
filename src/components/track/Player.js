@@ -5,16 +5,21 @@ import { ProgressBar } from 'react-bootstrap';
 export const Player = () => {
   const { chooseTrack } = useContext(SearchContext)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [volume, setVolume] = useState(0.1)
+  const [volume, setVolume] = useState(4)
   const [progressTime, setProgressTime] = useState(0)
 
   const loaderRef = useRef(null)
   const audioRef = useRef(null)
   const timeRef = useRef(null)
+  const volumeRef = useRef(null)
 
   const progressRef = useRef(null)
   const intervalRef = useRef(null)
 
+  useEffect(() => {
+    audioRef.current.volume = volume / 10
+    // volumeRef.current.style = `linear-gradient(to right, #609EC2 ${volume * 10}%, #6C757D ${volume * 10}%)`;
+  }, [])
 
 
   useEffect(() => {
@@ -55,11 +60,30 @@ export const Player = () => {
   const handleTogglePlayClick = () => {
     setIsPlaying(!isPlaying)
   }
+  // sliderEl3.addEventListener("input", (event) => {
+  //   const tempSliderValue = Number(event.target.value); 
+
+  //   sliderValue3.textContent = tempSliderValue; 
+
+  //   const progress = (tempSliderValue / sliderEl3.max) * 100;
+
+  //   sliderEl3.style.background = `linear-gradient(to right, #f50 ${progress}%, #ccc ${progress}%)`;
+
+  //   sliderEl3.style.setProperty("--thumb-rotate", `${(tempSliderValue/100) * 2160}deg`)
+  // })
+  // console.log('audioRef', audioRef.current.volume)
+  const handleVolumeInput = (e) => {
+    setVolume(Number(e.target.value))
+    let progress = volumeRef.current.value
+    volumeRef.current.style.background = `linear-gradient(to right, #609EC2 ${progress * 10}%, #6C757D ${progress * 10}%)`;
+    audioRef.current.volume = progress / 10
+    // console.log('e.target.value', volumeRef.current.value)
+  }
   return (
     <>
-      <div className="d-flex justify-content-around align-items-center p-2">
+      <div className="d-flex justify-content-around align-items-center p-2 h-100">
         {/* track info */}
-        <div className="d-flex">
+        <div className="d-flex h-100">
           <div className="loader align-self-center me-2" ref={loaderRef}></div>
           <img src={chooseTrack.albumUrl} alt="" />
           <div className="ms-2 me-2" style={{ whiteSpace: 'nowrap', overflow: 'scroll', textOverflow: 'ellipsis', maxWidth: '100px' }}>
@@ -68,29 +92,28 @@ export const Player = () => {
           </div>
         </div>
         {/* audio player */}
-        <div className="justify-content-center  flex-row  w-50">
+        <div className="flex-row  w-50 h-100  d-flex flex-column justify-content-around">
           {chooseTrack.preview_url ? (
             <>
               <audio ref={audioRef}
                 // controls
-                volume={volume}
                 onPlay={handleAudioPlay}
                 onPause={handleAudioPause}
               >
                 <source src={chooseTrack.preview_url} type="audio/mpeg" />
                 Your browser does not support the audio element.
               </audio>
-              <button className='btn shadow-none border-0 text-secondary' onClick={handleTogglePlayClick}>
+              <button className='btn shadow-none text-secondary' onClick={handleTogglePlayClick}>
                 {!isPlaying ? <i className="fa-solid fa-play fa-xl"></i> :
                   <i className="fa-solid fa-pause fa-xl"></i>
                 }
               </button>
-              <div className="d-flex justify-content-between align-items-center ">
+              <div className="d-flex bar justify-content-between align-items-center ">
                 <span id="auidioStart" className='flex-grow-1' ref={timeRef}>0:00</span>
-                <div className="bar flex-grow-10 me-3 ms-3 d-flex  align-items-center  w-100 position-relative bg-secondary ">
-                  <input type="range" className="position-absolute" id="bar" min="0" max="29" />
+                <div className=" flex-grow-10 me-3 ms-3 d-flex  align-items-center  w-100 position-relative bg-secondary ">
+                  {/* <input type="range" className="position-absolute" id="bar" min="0" max="29" /> */}
                   <div className="bar2 bg-primary position-relative" ref={progressRef}>
-                    <div className="dot bg-primary rounded-circle position-absolute"></div>
+                    {/* <div className="dot bg-primary rounded-circle position-absolute"></div> */}
                   </div>
                 </div>
                 <span id="auidioStart" className='flex-grow-1'>0:29</span>
@@ -102,15 +125,12 @@ export const Player = () => {
         </div>
 
         {/* volume */}
-        <div className="vol col-2 d-flex align-items-center">
+        <div className="vol col-2 d-flex align-items-center h-100">
           <div className="">
             <i className="fa-solid fa-volume-high fa-xl"></i>
           </div>
-          <div className="vol-bar bar  flex-grow-5 me-3 ms-3 d-flex w-100 align-items-center position-relative bg-secondary ">
-            <input type="range" className="position-absolute" id="bar" min="0" max="10" />
-            <div className="bar2 bg-primary position-relative w-100">
-              <div className="dot bg-primary rounded-circle position-absolute"></div>
-            </div>
+          <div className="vol-bar flex-grow-5 me-3 ms-3 d-flex w-100 align-items-center position-relative bg-secondary ">
+            <input type="range" className="position-absolute bar2" id="bar" min="0" max="10" onInput={handleVolumeInput} ref={volumeRef} value={volume} />
           </div>
         </div>
       </div>

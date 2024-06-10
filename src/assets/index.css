@@ -1,6 +1,7 @@
 :root {
   --primary-color: #36e2ec;
-  --secondary-color: rgb(97, 159, 195);
+  --secondary-color: #609EC2;
+  --progress-color: #6C757D;
   /* --font-size: 16px;
   --border-radius: 5px; */
 }
@@ -153,3 +154,29 @@ code {
   top: -0.3rem;
   box-shadow: inset 0px 0px 0.1rem var(--secondary-color);
 }
+
+
+.vol-bar input[type= "range"]{
+  -webkit-appearance: none;
+  appearance: none;
+  background:linear-gradient(to right, #609EC2 40%, #6C757D 40%);
+}
+
+.vol-bar input[type="range"]::-webkit-slider-thumb {
+  /* removing default appearance */
+  -webkit-appearance: none;
+  appearance: none;
+  /* creating a custom design */
+  background-color: var(--secondary-color);
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  border: none;
+
+  /* box-shadow: -407px 0 0 400px #f50; emove this line */
+  transition: .2s ease-in-out;
+}
+.vol-bar ::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 10px rgba(110, 171, 201, 0.1)
+}
+

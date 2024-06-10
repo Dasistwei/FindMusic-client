@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, useRef } from 'react'
 import { SearchContext } from '../../context/searchContext'
 import { AudDApi } from '../../Api/AudDApi';
 import { RecorderApi } from '../../Api/Recorder';
+import { LocalStorage } from '../../utils/LocalStorage';
 import { useNavigate } from 'react-router-dom'
 import '../../assets/index.css'
 
@@ -477,6 +478,7 @@ const filterTrack = (result) => {
 }
 
 export default function SoundsSearch() {
+  const userToken = LocalStorage.getAuthToken()
   const [permission, setPermission] = useState(false)
   const [stream, setStream] = useState(null)
 
@@ -492,7 +494,7 @@ export default function SoundsSearch() {
 
   const { track, setTrack } = useContext(SearchContext)
   const navigate = useNavigate()
-  console.log('soundsSearchState', soundsSearchState)
+
   useEffect(() => {
     if (!audio) return
     setsoundsSearchState('正在搜尋歌曲...')
@@ -547,7 +549,7 @@ export default function SoundsSearch() {
     mediaRecorder.current.stop()
     mediaRecorder.current.onstop = () => {
       const audioBlob = new Blob(audioChunks, { type: mimeType })
-      RecorderApi.getAudioUrl(setAudio, audioBlob)
+      RecorderApi.getAudioUrl(setAudio, audioBlob, userToken)
       setAudioChunks([])
     }
   }
