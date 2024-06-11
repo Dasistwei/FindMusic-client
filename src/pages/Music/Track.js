@@ -7,6 +7,7 @@ import { CollectionApi } from '../../Api/CollectionApi'
 
 
 export default function Track() {
+
   const { track, setTrack, setChooseTrack } = useContext(SearchContext)
   const [collections, setCollections] = useState('')
   const userToken = LocalStorage.getAuthToken()
@@ -28,7 +29,7 @@ export default function Track() {
     if (!track.uri) return
     const trackId = track.uri.split(":").pop()
     console.log('track', trackId)
-    CollectionApi.addTrack(userToken, trackId, collectionId)
+    CollectionApi.addTrack(userToken, trackId, collectionId, track)
       .then((response) => response.json())
       .then((result) => {
         console.log(result)

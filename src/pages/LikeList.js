@@ -30,7 +30,7 @@ export const LikeList = () => {
         </thead>
         <tbody>
           {likeList && likeList.map((track, index) => {
-            return <Track track={track} key={track.uri} setTrack={setTrack} url={track.preview_url} index={index} />
+            return <Track track={track} key={track.uri} setTrack={setTrack} url={track.preview_url} index={index} page='LikeList' />
           })}
         </tbody>
       </table>
