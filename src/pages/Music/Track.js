@@ -25,10 +25,8 @@ export default function Track() {
     TrackApi.userLike(userToken, track, trackId)
   }
   const handleAddBtnClick = (collectionId) => {
-    console.log('add', collectionId)
     if (!track.uri) return
     const trackId = track.uri.split(":").pop()
-    console.log('track', trackId)
     CollectionApi.addTrack(userToken, trackId, collectionId, track)
       .then((response) => response.json())
       .then((result) => {
