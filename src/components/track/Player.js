@@ -84,7 +84,7 @@ export const Player = () => {
       <div className="d-flex justify-content-around align-items-center p-2 h-100">
         {/* track info */}
         <div className="d-flex h-100">
-          <div className="loader align-self-center me-2" ref={loaderRef}></div>
+          <div className="volume-loader align-self-center me-2" ref={loaderRef}></div>
           <img src={chooseTrack.albumUrl} alt="" />
           <div className="ms-2 me-2" style={{ whiteSpace: 'nowrap', overflow: 'scroll', textOverflow: 'ellipsis', maxWidth: '100px' }}>
             <div className="">{chooseTrack.title}</div>

@@ -73,13 +73,13 @@ function App() {
           </Routes>
         </div>
       </div>
-      <div className="row fixed-bottom">
+      <div className="row fixed-bottom bg-light">
         {isAuthenticate && (
-          <div className=" col-12 bottom-0 border bg-light">
+          <div className=" col-12 bottom-0 border">
             <Player />
           </div>
         )}
-        <div className=" d-block d-md-none bottom-0 col-12 bg-dark ">
+        <div className="d-block d-md-none bottom-0 col-12">
           <PhoneNavbar />
         </div>
       </div>

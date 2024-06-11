@@ -2,8 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom'
 import { TrackApi } from "../../Api/TrackApi"
 import { LocalStorage } from '../../utils/LocalStorage';
-
-export const Track = ({ track, setTrack }) => {
+import { Link } from 'react-router-dom';
+export const Track = ({ track, setTrack, index }) => {
+  console.log('track', track)
   const navigate = useNavigate()
   const userToken = LocalStorage.getAuthToken()
   const handlePlay = () => {
@@ -20,13 +21,25 @@ export const Track = ({ track, setTrack }) => {
       .catch((error) => console.error(error));
   };
   return (
-    <div className="m-2 d-flex align-items-center" >
-      <img src={track.albumUrl} alt="album-logo" style={{ height: '64px', width: '64px' }} />
-      <div className="ms-2">
-        <div style={{ cursor: 'pointer' }} onClick={handlePlay}>{track.title}</div>
-        <div className="text-muted">{track.artists}</div>
-      </div>
-      <button className="btn btn-outline-primary" onClick={handleRemoveBtnClick}>移除</button>
-    </div>
+    <>
+      <tr key={track._id}>
+        <th scope="row">{index + 1}</th>
+        <td className=''>
+          <div className="m-2 d-flex align-items-center" >
+            <img src={track.albumUrl} alt="album-logo" style={{ height: '64px', width: '64px' }} />
+            <div className="ms-2">
+              <div style={{ cursor: 'pointer' }} onClick={handlePlay}>{track.title}</div>
+              <div className="text-muted">{track.artists}</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          {/* {track.album} */}
+        </td>
+        <td>
+          <button className="btn btn-outline-primary" onClick={handleRemoveBtnClick}>移除</button>
+        </td>
+      </tr>
+    </>
   );
 };
