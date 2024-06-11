@@ -12,7 +12,7 @@ const spotifyApi = {
       body: `grant_type=client_credentials&client_id=` + CLIENT_ID + `&client_secret=` + CLIENT_SECRET
     };
 
-    return fetch("https://accounts.spotify.com/api/token", requestOptions)
+    return fetch(process.env.REACT_APP_SPOTIFY_GET_TOKEN_URL, requestOptions)
   },
 
   searchTracks: (accessToken, search) => {

@@ -16,7 +16,7 @@ const AudDApi = {
       redirect: "follow"
     };
 
-    return fetch("https://api.audd.io/", requestOptions)
+    return fetch(process.env.REACT_APP_AUDD_URL, requestOptions)
   }
 }
 export { AudDApi }
