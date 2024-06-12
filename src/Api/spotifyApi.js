@@ -25,6 +25,17 @@ const spotifyApi = {
     }
 
     return fetch(`https://api.spotify.com/v1/search?q=${search}&type=track`, searchParmas)
+  },
+  getNewReleases: (accessToken, search) => {
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${accessToken}`);
+
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow"
+    };
+    return fetch("https://api.spotify.com/v1/browse/new-releases?limit=10", requestOptions)
   }
 }
 export { spotifyApi }

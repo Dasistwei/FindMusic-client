@@ -1,7 +1,7 @@
-import { useState, createContext } from 'react';
+import { spotifyApi } from '../Api/spotifyApi';
+import { useState, useEffect, createContext } from 'react';
 //context
-export const SearchContext = createContext({})
-
+export const SearchContext = createContext({});
 const defaultSearchResult = {
   "album": {
     "name": "Songs From The Big Chair (Super Deluxe Edition)",
@@ -458,9 +458,18 @@ const defaultChooseTrack = {
 export const SearchProvider = ({ children }) => {
   const [track, setTrack] = useState({})
   const [chooseTrack, setChooseTrack] = useState(defaultChooseTrack);
-  const [searchCount, setSearchCount] = useState('')
+  const [accessToken, setAccessToken] = useState('');
+
+  useEffect(() => {
+    spotifyApi.getAccessToken()
+      .then(res => res.json())
+      .then(result => {
+        setAccessToken(result.access_token)
+      })
+      .catch((error) => console.error(error));
+  }, [])
   return (
-    <SearchContext.Provider value={{ track, setTrack, chooseTrack, setChooseTrack }}>
+    <SearchContext.Provider value={{ track, setTrack, chooseTrack, setChooseTrack, accessToken }}>
       {children}
     </SearchContext.Provider>
   )

@@ -199,3 +199,23 @@ code {
   box-shadow: 0 0 0 10px rgba(110, 171, 201, 0.1)
 }
 
+/* //swiper */
+swiper-container {
+  width: 100%;
+}
+
+swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 12rem;
+  height:fit-content;
+}
+
+swiper-slide img {
+  display: block;
+  width: 100%;
+}
+swiper-slide .info {
+  display: block;
+  width: 100%;
+}

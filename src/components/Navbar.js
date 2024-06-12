@@ -14,7 +14,7 @@ const Navbar = () => {
   }
   return (
     <div className="">
-      <ul className='navbar-nav'>
+      <ul className='navbar-nav '>
         <li className='navbar-item'>
           <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/'>首頁</NavLink>
         </li>
@@ -34,12 +34,6 @@ const Navbar = () => {
           {!isAuthenticate ?
             <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/sign_in'>登入</NavLink> :
             <button className="btn btn-outline-none" onClick={handleSignOutClick}>登出</button>}
-        </li>
-        <li className='navbar-item'>
-          <NavLink className='nav-link text-success' to='/artist/:id'>歌手</NavLink>
-        </li>
-        <li className='navbar-item'>
-          <NavLink className='nav-link text-success' to='/track/:id'>歌曲</NavLink>
         </li>
       </ul>
     </div>

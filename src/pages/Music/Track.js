@@ -30,8 +30,8 @@ export default function Track() {
     CollectionApi.addTrack(userToken, trackId, collectionId, track)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result)
-        // window.location.reload()
+        // console.log(result)
+        window.location.reload()
       })
       .catch((error) => console.error(error));
   }

@@ -5,21 +5,14 @@ import { SearchContext } from '../../context/searchContext'
 import { spotifyApi } from '../../Api/spotifyApi';
 import { Container, Form } from 'react-bootstrap';
 import { TrackSearchResults } from '../../components/track/TrackSearchResults';
-
+import { CommonFunc } from '../../utils/CommonFunc';
 export default function Search() {
   const [search, setSearch] = useState('');
-  const [accessToken, setAccessToken] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const { setTrack } = useContext(SearchContext)
-  useEffect(() => {
-    spotifyApi.getAccessToken()
-      .then(res => res.json())
-      .then(result => setAccessToken(result.access_token))
-      .catch((error) => console.error(error));
-  }, [])
+  const { setTrack, accessToken } = useContext(SearchContext)
 
   useEffect(() => {
-    if (!search) return setSearchResults([]);
+    if (!search) return;
     if (!accessToken) return;
     // cancel old requrest when another new search is made
     let cancel = false;
@@ -28,20 +21,8 @@ export default function Search() {
         //stop old requrest continueing when cancel is true
         if (cancel) return;
         setSearchResults(
-          res.tracks.items.map((track) => {
-            const smallestAlbum = track.album.images.reduce((smallest, image) => {
-              if (image.height < smallest.height) return image;
-              return smallest;
-            }, track.album.images[0]);
-            return {
-              artists: track.artists[0].name,
-              artistsUri: track.artists[0].uri,
-              title: track.name,
-              uri: track.uri,
-              albumUrl: smallestAlbum.url,
-              preview_url: track.preview_url,
-            };
-          })
+          // CommonFunc.mappingToMusicsArray(res.tracks.items)
+          CommonFunc.mappingToMusicsArray(res)
         );
       })
       .catch((error) => console.error(error));
@@ -67,7 +48,7 @@ export default function Search() {
           }}
         ></Form.Control>
         <div className="flex-grow-1 my-2" style={{ overflowY: 'auto' }}>
-          {searchResults.map((track) => {
+          {searchResults && searchResults.map((track) => {
             return <TrackSearchResults track={track} key={track.uri} setTrack={setTrack} url={track.preview_url} />;
           })}
         </div>
