@@ -1,5 +1,4 @@
 const CommonFunc = {
-  // 從 localStorage 讀取 token
   mappingToMusicsArray: (datas) => {
     const type = Object.entries(datas)[0][0]
     const values = Object.values(datas)[0].items

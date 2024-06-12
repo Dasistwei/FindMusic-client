@@ -21,9 +21,6 @@ const TrackApi = {
     };
 
     return fetch(`${process.env.REACT_APP_SERVER_URL}/tracks/${trackId}/likes`, requestOptions)
-      .then((response) => response.json())
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
   },
   userRemoveLike: (jwt_token, trackId) => {
     const myHeaders = new Headers();

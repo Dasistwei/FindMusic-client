@@ -33,7 +33,7 @@ export default function Home() {
           coverflow-effect-modifier="1" coverflow-effect-slide-shadows="true">
           {newReleases.length > 0 && newReleases.map((album) => {
             return (
-              <swiper-slide onClick={() => { console.log('hi') }}>
+              <swiper-slide onClick={() => { console.log('hi') }} key={album.uri}>
                 <img src={album.albumUrl} alt='album-logo' />
                 <div className="info">
                   <p>{album.title}</p>

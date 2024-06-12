@@ -10,6 +10,8 @@ export default function Track() {
 
   const { track, setTrack, setChooseTrack } = useContext(SearchContext)
   const [collections, setCollections] = useState('')
+  const [isLike, setIsLike] = useState(false)
+  const [isCollect, setIsCollect] = useState(false)
   const userToken = LocalStorage.getAuthToken()
   useEffect(() => {
     CollectionApi.getCollections(userToken)
@@ -23,15 +25,22 @@ export default function Track() {
   const handleHeartClick = () => {
     const trackId = track.uri.split(":").pop()
     TrackApi.userLike(userToken, track, trackId)
+      .then((response) => response.json())
+      .then((result) => {
+        if (result.status === 'success') {
+          setIsLike(true)
+        }
+      })
+      .catch((error) => console.error(error));
   }
+  // console.log('collections', collections)
   const handleAddBtnClick = (collectionId) => {
     if (!track.uri) return
     const trackId = track.uri.split(":").pop()
     CollectionApi.addTrack(userToken, trackId, collectionId, track)
       .then((response) => response.json())
       .then((result) => {
-        // console.log(result)
-        window.location.reload()
+        setIsCollect(true)
       })
       .catch((error) => console.error(error));
   }
@@ -46,16 +55,12 @@ export default function Track() {
         </p>
         <p>{track.albumName}</p>
         <div className="" onClick={handleHeartClick}>
-          <span className="material-symbols-outlined cursor">
-            favorite
-          </span>
+          <i className={`fa-regular fa-xl cursor ${!isLike ? 'fa-heart' : 'fa-solid fa-heart-circle-check'}`}></i>
         </div>
         {/* add track to collection */}
         <div className="btn-group dropend">
           <button type="button" className="btn shadow-none text-secondary" data-bs-toggle="dropdown" aria-expanded="false" disabled={!track}>
-            <span className="material-symbols-outlined cursor">
-              add
-            </span>
+            <i className={`fa-regular fa-xl cursor ${!isCollect ? 'fa-solid fa-plus' : 'fa-circle-check'}`}></i>
           </button>
           <ul className="dropdown-menu">
             {collections &&

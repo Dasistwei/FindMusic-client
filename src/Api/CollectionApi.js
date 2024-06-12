@@ -94,7 +94,6 @@ const CollectionApi = {
     return fetch(`${process.env.REACT_APP_SERVER_URL}/collections/add_track`, requestOptions)
   },
   removeTrack: (jwt_token, trackId, collectionId) => {
-    console.log('jwt_token, trackId, collectionId', jwt_token, trackId, collectionId)
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${jwt_token}`);
     myHeaders.append("Content-Type", "application/json");

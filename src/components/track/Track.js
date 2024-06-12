@@ -14,7 +14,6 @@ export const Track = ({ track, setTrack, index, page, collectionId }) => {
   };
   const handleRemoveBtnClick = () => {
     if (page === 'Collection') {
-      console.log('userToken, track._id, collectionId', userToken, track.trackId, collectionId)
       return CollectionApi.removeTrack(userToken, track.trackId, collectionId)
         .then((response) => response.json())
         .then((result) => {
