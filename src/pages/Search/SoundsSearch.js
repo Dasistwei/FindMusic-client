@@ -486,8 +486,9 @@ export default function SoundsSearch() {
   const [recordingStatus, setRecordingStatus] = useState("inactive")
   const [audioChunks, setAudioChunks] = useState([]) //chunks
   const [audio, setAudio] = useState(null)  //blob:URL
+  const [isRecognizing, setIsRecognizin] = useState(false)
+  const [isRecognizingText, setIsRecognizinText] = useState('')
 
-  const [soundsSearchState, setsoundsSearchState] = useState('')
 
   const mimeType = "audio/mp3"
 
@@ -497,20 +498,28 @@ export default function SoundsSearch() {
 
   useEffect(() => {
     if (!audio) return
-    setsoundsSearchState('正在搜尋歌曲...')
+    setIsRecognizinText('正在搜尋歌曲...')
     AudDApi.soundsSearch(audio)
       .then(res => res.json())
       .then(res => {
         console.log('api', res)
-        if (res.result && res.status === 'success') {
+        if (res.result === null) {
+          setIsRecognizinText('搜尋失敗')
+          setIsRecognizin(false)
+          return
+        }
+        if (res.result !== null && res.status === 'success') {
           setTrack(filterTrack(res.result.spotify))
           navigate(`/track/${res.result.spotify.uri}`)
+          setIsRecognizinText('找到了')
+          setIsRecognizin(false)
+          return
         }
-        setsoundsSearchState('找到了')
       })
       .catch(err => {
         console.log(err)
-        setsoundsSearchState('搜尋失敗')
+        setIsRecognizinText('搜尋失敗')
+        setIsRecognizin(false)
       })
   }, [audio])
 
@@ -543,9 +552,10 @@ export default function SoundsSearch() {
     }
     setAudioChunks(audioChunks)
   }
-
   const stopRecording = () => {
     setRecordingStatus("inactive")
+    setIsRecognizin(true)
+    setIsRecognizinText('正在辨識...')
     mediaRecorder.current.stop()
     mediaRecorder.current.onstop = () => {
       const audioBlob = new Blob(audioChunks, { type: mimeType })
@@ -553,33 +563,25 @@ export default function SoundsSearch() {
       setAudioChunks([])
     }
   }
+  const buttonProps = !permission
+    ? { onClick: getMicrophonePermissions, text: 'Press to Get Microphone...' }
+    : recordingStatus === 'inactive'
+      ? { onClick: startRecording, text: 'Press to Start Recording' }
+      : { onClick: stopRecording, text: 'Press to Stop Recording' }
+
 
   return (
     <div className='d-flex justify-content-center'>
       <div className="border">
         <div className="mic-div border">
-          <button type='button' className='mic-btn border-0 rounded-circle'>
+          <button type='button' className='mic-btn border-0 rounded-circle' onClick={buttonProps.onClick} disabled={isRecognizing} >
             <span className="mic-size material-symbols-outlined text-primary " >
               mic
             </span>
           </button>
+          <div className="audio-controls">{!isRecognizing ? buttonProps.text : isRecognizingText}</div>
+          <div className="">{isRecognizingText === '搜尋失敗' && isRecognizingText}</div>
         </div>
-        <div className="audio-controls">
-          {!permission ? (
-            <button onClick={getMicrophonePermissions} type='button'>Get Microphone</button>
-          ) : null}
-          {permission && recordingStatus === 'inactive' ? (
-            <button onClick={startRecording} type='button'>Start Recording</button>
-          ) : null}
-          {permission && recordingStatus === 'recording' ? (
-            <button onClick={stopRecording} type='button'>Stop Recording</button>
-          ) : null}
-        </div>
-        {/* {audio ? (
-        <div className="audio-container">
-          <audio src={audio} controls></audio>
-        </div>
-      ) : null} */}
       </div>
     </div>
   )
