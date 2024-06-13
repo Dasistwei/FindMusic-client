@@ -462,7 +462,6 @@ export const SearchProvider = ({ children }) => {
 
   useEffect(() => {
     spotifyApi.getAccessToken()
-      .then(res => res.json())
       .then(result => {
         setAccessToken(result.access_token)
       })

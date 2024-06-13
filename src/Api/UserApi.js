@@ -18,6 +18,7 @@ const UserApi = {
     };
 
     return fetch(`${process.env.REACT_APP_SERVER_URL}/users/sign_up`, requestOptions)
+      .then((response) => response.json())
   },
   signIn: (formData) => {
     const myHeaders = new Headers();
@@ -36,6 +37,7 @@ const UserApi = {
     };
 
     return fetch(`${process.env.REACT_APP_SERVER_URL}/users/sign_in`, requestOptions)
+      .then((response) => response.json())
   },
   signWithGoogle: () => {
     return window.location.href = `${process.env.REACT_APP_SERVER_URL}/users/google`

@@ -13,6 +13,7 @@ const spotifyApi = {
     };
 
     return fetch(process.env.REACT_APP_SPOTIFY_GET_TOKEN_URL, requestOptions)
+      .then(res => res.json())
   },
 
   searchTracks: (accessToken, search) => {
@@ -25,6 +26,7 @@ const spotifyApi = {
     }
 
     return fetch(`https://api.spotify.com/v1/search?q=${search}&type=track`, searchParmas)
+      .then(res => res.json())
   },
   getNewReleases: (accessToken, search) => {
     const myHeaders = new Headers();
@@ -36,6 +38,7 @@ const spotifyApi = {
       redirect: "follow"
     };
     return fetch("https://api.spotify.com/v1/browse/new-releases?limit=10", requestOptions)
+      .then((res) => res.json())
   }
 }
 export { spotifyApi }

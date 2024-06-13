@@ -13,30 +13,28 @@ const Navbar = () => {
     window.location.reload()
   }
   return (
-    <div className="">
-      <ul className='navbar-nav '>
-        <li className='navbar-item'>
-          <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/'>首頁</NavLink>
-        </li>
-        <li className='navbar-item'>
-          <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/search'>搜尋</NavLink>
-        </li>
-        <li className='navbar-item'>
-          <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/sounds_search'>音源搜尋</NavLink>
-        </li>
-        <li className='navbar-item'>
-          <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/likeList'>已按讚的歌曲</NavLink>
-        </li>
-        <li className='navbar-item'>
-          <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/collection'>管理播放清單</NavLink>
-        </li>
-        <li className='navbar-item'>
-          {!isAuthenticate ?
-            <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/sign_in'>登入</NavLink> :
-            <button className="btn btn-outline-none" onClick={handleSignOutClick}>登出</button>}
-        </li>
-      </ul>
-    </div>
+    <ul className='navbar-nav '>
+      <li className='navbar-item'>
+        <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/'>首頁</NavLink>
+      </li>
+      <li className='navbar-item'>
+        <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/search'>搜尋</NavLink>
+      </li>
+      <li className='navbar-item'>
+        <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/sounds_search'>音源搜尋</NavLink>
+      </li>
+      <li className='navbar-item'>
+        <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/likeList'>已按讚的歌曲</NavLink>
+      </li>
+      <li className='navbar-item'>
+        <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/collection'>管理播放清單</NavLink>
+      </li>
+      <li className='navbar-item'>
+        {!isAuthenticate ?
+          <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/sign_in'>登入</NavLink> :
+          <button className="btn btn-outline-none" onClick={handleSignOutClick}>登出</button>}
+      </li>
+    </ul>
   )
 };
 

@@ -500,7 +500,6 @@ export default function SoundsSearch() {
     if (!audio) return
     setIsRecognizinText('正在搜尋歌曲...')
     AudDApi.soundsSearch(audio)
-      .then(res => res.json())
       .then(res => {
         console.log('api', res)
         if (res.result === null) {
@@ -540,6 +539,8 @@ export default function SoundsSearch() {
 
   const startRecording = async () => {
     setRecordingStatus('recording')
+    setIsRecognizinText('')
+
     //create media recorder in use of stream
     const media = new MediaRecorder(stream, { type: mimeType })
     //set media to ref

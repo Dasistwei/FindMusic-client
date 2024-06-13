@@ -16,7 +16,6 @@ export default function Home() {
   useEffect(() => {
     if (newReleases.length > 0 || !accessToken) return
     spotifyApi.getNewReleases(accessToken)
-      .then((response) => response.json())
       .then((result) => {
         setNewReleases(CommonFunc.mappingToMusicsArray(result))
       })

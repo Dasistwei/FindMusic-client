@@ -17,6 +17,7 @@ const AudDApi = {
     };
 
     return fetch(process.env.REACT_APP_AUDD_URL, requestOptions)
+      .then(res => res.json())
   }
 }
 export { AudDApi }

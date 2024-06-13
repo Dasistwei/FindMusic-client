@@ -16,7 +16,7 @@ export default function Search() {
     if (!accessToken) return;
     // cancel old requrest when another new search is made
     let cancel = false;
-    spotifyApi.searchTracks(accessToken, search).then(response => response.json())
+    spotifyApi.searchTracks(accessToken, search)
       .then(res => {
         //stop old requrest continueing when cancel is true
         if (cancel) return;

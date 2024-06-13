@@ -129,7 +129,7 @@ code {
 }
 
 
-.api-loader {
+.api-loader, .btn-loader {
   width: 50px;
   --b: 8px; 
   aspect-ratio: 1;
@@ -144,7 +144,9 @@ code {
   animation:l4 1s infinite steps(10);
 }
 @keyframes l4 {to{transform: rotate(1turn)}}
-
+.btn-loader{
+  width: 1.5rem;
+}
 .bar{
   height: 0.2rem;
 }

@@ -65,7 +65,7 @@ export default function CollectionList() {
             <input type="text" className="form-control" placeholder="請輸入歌單名稱" onChange={handleInputChange} />
           </div>
           <div className="col-auto">
-            <button className='btn btn-success mb-3' onClick={handleBtnClick}>新增歌單</button>
+            <button className='btn btn-primary mb-3 text-white' onClick={handleBtnClick}>新增歌單</button>
           </div>
         </div>
       </div>
