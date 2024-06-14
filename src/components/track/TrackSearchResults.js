@@ -1,12 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'
-
+import { TrackApi } from '../../Api/TrackApi';
+import { LocalStorage } from '../../utils/LocalStorage'
 export const TrackSearchResults = ({ track, setTrack }) => {
   const navigate = useNavigate()
+  const userToken = LocalStorage.getAuthToken()
   const handlePlay = () => {
-    // console.log('track', track)
+    const trackId = track.uri.split(':').pop()
+
+    TrackApi.addRecentSearch(userToken, trackId)
     setTrack(track);
     navigate(`/track/${track.uri}`)
+
   };
   return (
     <div className="m-2 d-flex align-items-center" style={{ cursor: 'pointer' }} onClick={handlePlay}>

@@ -60,18 +60,7 @@ export const Player = () => {
   const handleTogglePlayClick = () => {
     setIsPlaying(!isPlaying)
   }
-  // sliderEl3.addEventListener("input", (event) => {
-  //   const tempSliderValue = Number(event.target.value); 
 
-  //   sliderValue3.textContent = tempSliderValue; 
-
-  //   const progress = (tempSliderValue / sliderEl3.max) * 100;
-
-  //   sliderEl3.style.background = `linear-gradient(to right, #f50 ${progress}%, #ccc ${progress}%)`;
-
-  //   sliderEl3.style.setProperty("--thumb-rotate", `${(tempSliderValue/100) * 2160}deg`)
-  // })
-  // console.log('audioRef', audioRef.current.volume)
   const handleVolumeInput = (e) => {
     setVolume(Number(e.target.value))
     let progress = volumeRef.current.value
@@ -85,12 +74,13 @@ export const Player = () => {
         {/* track info */}
         <div className="d-flex h-100">
           <div className="volume-loader align-self-center me-2" ref={loaderRef}></div>
-          <img src={chooseTrack.albumUrl} alt="" />
+          <img src={chooseTrack.albumUrl} alt="" className='playerImg' />
           <div className="ms-2 me-2" style={{ whiteSpace: 'nowrap', overflow: 'scroll', textOverflow: 'ellipsis', maxWidth: '100px' }}>
             <div className="">{chooseTrack.title}</div>
             <div className="text-muted">{chooseTrack.artists}</div>
           </div>
         </div>
+
         {/* audio player */}
         <div className="flex-row  w-50 h-100  d-flex flex-column justify-content-around">
           {chooseTrack.preview_url ? (

@@ -22,7 +22,7 @@ export default function Search() {
         if (cancel) return;
         setSearchResults(
           // CommonFunc.mappingToMusicsArray(res.tracks.items)
-          CommonFunc.mappingToMusicsArray(res)
+          CommonFunc.mappingToMusicsArray(res, 'tracks')
         );
       })
       .catch((error) => console.error(error));

@@ -221,3 +221,7 @@ swiper-slide .info {
   display: block;
   width: 100%;
 }
+
+.playerImg{
+  width: 4rem;
+}
