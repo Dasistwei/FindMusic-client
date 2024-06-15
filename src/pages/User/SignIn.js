@@ -92,7 +92,7 @@ export default function SignIn() {
   }
   return (
     <div className="d-flex h-100 w-100 ">
-      <div className='signup mb-3 mt-3 template d-flex align-items-center row flex-column border h-100 w-100'>
+      <div className='signup mb-3 mt-3 template d-flex align-items-center row flex-column h-100 w-100'>
         <>
           <div className="col-md-5 mb-3">
             <h3>登入</h3>

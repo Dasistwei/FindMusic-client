@@ -51,12 +51,12 @@ function App() {
   return (
     <div className={`App container-fluid fw-bold ${backgroundColor} ${mainTextColor}`}>
       <div className="main-content row flex-grow-1">
-        <div className={`d-none d-md-block  col-md-2 position-relative fs-5 ${lightModeBorder} navbar-container ${backgroundSide} border-end border-2 border-dark`}>
-          <div className="position-absolute p-center">
+        <div className={`d-none d-md-block  col-md-2 fs-6 ${lightModeBorder} navbar-container ${backgroundSide} border-end border-2 border-dark`}>
+          <div className="">
             <Navbar />
           </div>
         </div>
-        <div className={`col-md-10 ${lightModeBorder} container content-container`} style={{ height: "80vh" }}>
+        <div className={`col-md-10 ${lightModeBorder} container content-container`} style={{ height: "85vh" }}>
           <Routes>
             <Route path="/sign_in" element={<SignIn />}></Route>
             <Route path="/sign_up" element={<SignUp />}></Route>

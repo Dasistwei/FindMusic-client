@@ -8,7 +8,7 @@ export default function AlbumPhoto() {
   const { id } = useParams();
   const [photo, setPhoto] = useState({});
   const navigate = useNavigate()
-  // console.log(`${api}/${id}?client_id=${client_id}`);
+
 
   useEffect(() => {
     (async () => {
@@ -21,7 +21,7 @@ export default function AlbumPhoto() {
     })();
   }, [id]);
 
-  // console.log();
+
   return (
     <div>
       <button type='button' onClick={() => { navigate(-1) }}>上一頁</button>

@@ -15,11 +15,14 @@ const Navbar = () => {
     window.location.reload()
   }
   return (
-    <ul className='navbar-nav'>
-      {/* <li className='navbar-item'>
-        <NavLink className={`nav-link fs-4 ${logoColor}`}>Find Music</NavLink>
-      </li> */}
+    <ul className='navbar-nav position-relative' style={{ height: '85vh' }}>
       <li className='navbar-item'>
+        <NavLink className={`nav-link fs-4 ${logoColor}`}>Find Music</NavLink>
+        {/* <span className="material-symbols-outlined phoneNav-icon-size">
+          graphic_eq
+        </span> */}
+      </li>
+      <li li className='navbar-item' >
         <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/'>
           <i class="fa-solid fa-house fa-lg"></i>
           <span className='ms-2'>首頁</span>
@@ -52,7 +55,12 @@ const Navbar = () => {
       <li className='navbar-item'>
         {!isAuthenticate ?
           <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/sign_in'>登入</NavLink> :
-          <div className='cursor mt-3' onClick={handleSignOutClick}><i className="fa-solid fa-arrow-right-from-bracket fa-lg"></i></div>}
+          <div className='cursor mt-3' onClick={handleSignOutClick}><i className="fa-solid fa-arrow-right-from-bracket fa-lg"></i>
+            <span className='ms-2'>登出</span>
+          </div>}
+      </li>
+      <li className='navbar-item position-absolute bottom-0' style={{ fontSize: '0.5rem' }}>
+        <span className='ms-2'>此網站僅為個人作品練習，無任何營利或商業用途</span>
       </li>
     </ul>
   )

@@ -71,7 +71,6 @@ export const Player = () => {
     let progress = volumeRef.current.value
     volumeRef.current.style.background = `linear-gradient(to right, #609EC2 ${progress * 10}%, #6C757D ${progress * 10}%)`;
     audioRef.current.volume = progress / 10
-    // console.log('e.target.value', volumeRef.current.value)
   }
   return (
     <>

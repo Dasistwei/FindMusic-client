@@ -32,7 +32,7 @@ export default function Track() {
       })
       .catch((error) => console.error(error));
   }
-  // console.log('collections', collections)
+
   const handleAddBtnClick = (collectionId) => {
     if (!track.uri) return
     const trackId = track.uri.split(":").pop()

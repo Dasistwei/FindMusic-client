@@ -37,7 +37,7 @@ export default function Home() {
   }, [accessToken])
 
 
-  // console.log('recentSearch', recentSearch)
+
   return (
     <div className={`${lightModeBorder} text-start row h-100`}>
       <div className="col-12 mt-4">

@@ -14,12 +14,11 @@ export default function Collection() {
     CollectionApi.getCollection(userToken, collectionId)
       .then((response) => response.json())
       .then((result) => {
-        // console.log('get collection', result)
         setTracks(result.data)
       })
       .catch((error) => console.error(error));
   }, [])
-  // console.log('tracks', tracks)
+
   return (
     <>
       <div className='border d-flex flex-column'>
