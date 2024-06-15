@@ -5,6 +5,11 @@ import { LocalStorage } from "../utils/LocalStorage";
 import { SearchContext } from '../context/searchContext'
 import { Link } from 'react-router-dom';
 export const LikeList = () => {
+  let lightMode = false
+  const mainTextColor = lightMode ? 'text-secondary' : 'text-secondary';
+  const secondTextColor = lightMode ? 'text-darkmode-secondary' : 'text-white';
+  const backgroundColor = lightMode ? 'bg-light' : 'bg-darkmode-main';
+
   const [likeList, setLikeList] = useState([]);
   const [editValue, setEditValue] = useState('');
   const userToken = LocalStorage.getAuthToken()
@@ -17,23 +22,25 @@ export const LikeList = () => {
   }, [])
   const handleDeleteBtnClick = () => { }
   return (
-    <div className='border d-flex flex-column'>
-      <div>LikeList</div>
-      <table className="table table-light">
-        <thead>
-          <tr className=''>
-            <th scope="col">#</th>
-            <th scope="col">名稱</th>
-            <th scope="col"></th>
-            <th scope="col">修改</th>
-          </tr>
-        </thead>
-        <tbody>
-          {likeList && likeList.map((track, index) => {
-            return <Track track={track} key={track.uri} setTrack={setTrack} url={track.preview_url} index={index} page='LikeList' />
-          })}
-        </tbody>
-      </table>
+    <div className="row">
+      <div className={`d-flex flex-column col-12 ${secondTextColor}`}>
+        <div>已按讚的歌曲</div>
+        <table className={`${backgroundColor}`}>
+          <thead>
+            <tr className=''>
+              <th scope="col">#</th>
+              <th scope="col">名稱</th>
+              <th scope="col"></th>
+              <th scope="col">修改</th>
+            </tr>
+          </thead>
+          <tbody>
+            {likeList && likeList.map((track, index) => {
+              return <Track track={track} key={track.uri} setTrack={setTrack} url={track.preview_url} index={index} page='LikeList' />
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }

@@ -16,6 +16,11 @@ export const Player = () => {
   const progressRef = useRef(null)
   const intervalRef = useRef(null)
 
+  let lightMode = false
+  const lightModeBorder = lightMode ? 'border' : '';
+  const secondTextColor = lightMode ? 'text-darkmode-secondary' : 'text-white';
+  const mainTextColor = lightMode ? 'text-secondary' : 'text-secondary-light';
+  const thirdBgColor = lightMode ? 'bg-primary' : 'bg-info';
   useEffect(() => {
     audioRef.current.volume = volume / 10
     // volumeRef.current.style = `linear-gradient(to right, #609EC2 ${volume * 10}%, #6C757D ${volume * 10}%)`;
@@ -76,12 +81,19 @@ export const Player = () => {
           <div className="volume-loader align-self-center me-2" ref={loaderRef}></div>
           <img src={chooseTrack.albumUrl} alt="" className='playerImg' />
           <div className="ms-2 me-2" style={{ whiteSpace: 'nowrap', overflow: 'scroll', textOverflow: 'ellipsis', maxWidth: '100px' }}>
-            <div className="">{chooseTrack.title}</div>
-            <div className="text-muted">{chooseTrack.artists}</div>
+            <div className={`${secondTextColor}`}>{chooseTrack.title}</div>
+            <div className={`${mainTextColor}`}>{chooseTrack.artists}</div>
           </div>
         </div>
 
         {/* audio player */}
+        {chooseTrack.preview_url &&
+          <button className={`btn shadow-none ${secondTextColor}`} onClick={handleTogglePlayClick}>
+            {!isPlaying ? <i className="fa-solid fa-play fa-xl"></i> :
+              <i className="fa-solid fa-pause fa-xl"></i>
+            }
+          </button>
+        }
         <div className="flex-row  w-50 h-100  d-flex flex-column justify-content-around">
           {chooseTrack.preview_url ? (
             <>
@@ -93,20 +105,20 @@ export const Player = () => {
                 <source src={chooseTrack.preview_url} type="audio/mpeg" />
                 Your browser does not support the audio element.
               </audio>
-              <button className='btn shadow-none text-secondary' onClick={handleTogglePlayClick}>
+              {/* <button className={`btn shadow-none ${secondTextColor}`} onClick={handleTogglePlayClick}>
                 {!isPlaying ? <i className="fa-solid fa-play fa-xl"></i> :
                   <i className="fa-solid fa-pause fa-xl"></i>
                 }
-              </button>
+              </button> */}
               <div className="d-flex bar justify-content-between align-items-center ">
-                <span id="auidioStart" className='flex-grow-1' ref={timeRef}>0:00</span>
+                <span id="auidioStart" className={`flex-grow-1 ${secondTextColor}`} ref={timeRef}>0:00</span>
                 <div className=" flex-grow-10 me-3 ms-3 d-flex  align-items-center  w-100 position-relative bg-secondary ">
                   {/* <input type="range" className="position-absolute" id="bar" min="0" max="29" /> */}
-                  <div className="bar2 bg-primary position-relative" ref={progressRef}>
+                  <div className={`bar2 ${thirdBgColor} position-relative`} ref={progressRef}>
                     {/* <div className="dot bg-primary rounded-circle position-absolute"></div> */}
                   </div>
                 </div>
-                <span id="auidioStart" className='flex-grow-1'>0:29</span>
+                <span id="auidioStart" className={`flex-grow-1 ${secondTextColor}`}>0:29</span>
               </div>
             </>
           ) : (
@@ -115,12 +127,12 @@ export const Player = () => {
         </div>
 
         {/* volume */}
-        <div className="vol col-2 d-flex align-items-center h-100">
-          <div className="">
+        <div className="vol col-1 col-md-2 d-flex align-items-center h-100">
+          <div className={`${secondTextColor}`}>
             <i className="fa-solid fa-volume-high fa-xl"></i>
           </div>
-          <div className="vol-bar flex-grow-5 me-3 ms-3 d-flex w-100 align-items-center position-relative bg-secondary ">
-            <input type="range" className="position-absolute bar2" id="bar" min="0" max="10" onInput={handleVolumeInput} ref={volumeRef} value={volume} />
+          <div className={`vol-bar flex-grow-5 me-3 ms-3 d-flex align-items-center ${thirdBgColor}`}>
+            <input type="range" className=" bar2" id="bar" min="0" max="10" onInput={handleVolumeInput} ref={volumeRef} value={volume} />
           </div>
         </div>
       </div>

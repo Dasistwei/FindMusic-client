@@ -9,6 +9,10 @@ import { LocalStorage } from '../../utils/LocalStorage'
 export default function Home() {
   const { setTrack, setChooseTrack, accessToken } = useContext(SearchContext)
   const userToken = LocalStorage.getAuthToken()
+  let lightMode = false
+  const lightModeBorder = lightMode ? 'border' : '';
+  const mainTextColor = lightMode ? 'text-secondary' : 'text-secondary';
+  const secondTextColor = lightMode ? 'text-darkmode-secondary' : 'text-white';
 
   const [newReleases, setNewReleases] = useState([])
   const [recentSearch, setResentSearch] = useState([])
@@ -35,9 +39,9 @@ export default function Home() {
 
   // console.log('recentSearch', recentSearch)
   return (
-    <div className='border vh-100 text-start '>
-      <div className="">
-        <h5>全球熱門歌曲</h5>
+    <div className={`${lightModeBorder} text-start row h-100`}>
+      <div className="col-12 mt-4">
+        <h5 className={`${secondTextColor}`}>全球熱門歌曲</h5>
         <swiper-container className="mySwiper" effect="coverflow" grab-cursor="true" centered-slides="true"
           slides-per-view="auto" coverflow-effect-rotate="50" coverflow-effect-stretch="0" coverflow-effect-depth="100"
           coverflow-effect-modifier="1" coverflow-effect-slide-shadows="true">
@@ -49,18 +53,17 @@ export default function Home() {
               }} key={album.uri}>
                 <img src={album.albumUrl} alt='album-logo' />
                 <div className="info">
-                  <p>{album.title}</p>
-                  <p>{album.artists}</p>
+                  <p className={`${secondTextColor}`}>{album.title}</p>
+                  <p className={`${mainTextColor}`}>{album.artists}</p>
                 </div>
               </swiper-slide>
             )
           })}
         </swiper-container>
       </div>
-      <div className="">
-        <h5>最近的搜尋</h5>
-        <swiper-container class="mySwiper" pagination="true" pagination-clickable="true" space-between="30"
-          slides-per-view="3">
+      <div className="recent-search col-12">
+        <h5 className={`mt-4 mb-4 ${secondTextColor}`}>最近的搜尋</h5>
+        <swiper-container class="mySwiper" space-between="30" slides-per-view="4">
           {recentSearch.length > 0 && recentSearch.map((album) => {
             return (
               <swiper-slide onClick={() => {
@@ -69,8 +72,8 @@ export default function Home() {
               }} key={album.uri}>
                 <img src={album.albumUrl} alt='album-logo' />
                 <div className="info">
-                  <p>{album.title}</p>
-                  <p>{album.artists}</p>
+                  <span className={`d-block ${secondTextColor}`}>{album.title}</span>
+                  <span className={`d-block ${mainTextColor}`}>{album.artists}</span>
                 </div>
               </swiper-slide>
             )

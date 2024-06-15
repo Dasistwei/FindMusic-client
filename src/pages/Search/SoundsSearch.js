@@ -572,16 +572,16 @@ export default function SoundsSearch() {
 
 
   return (
-    <div className='d-flex justify-content-center'>
-      <div className="border">
-        <div className="mic-div border">
+    <div className='d-flex justify-content-center align-items-center h-100'>
+      <div className="">
+        <div className="mic-div ">
           <button type='button' className='mic-btn border-0 rounded-circle' onClick={buttonProps.onClick} disabled={isRecognizing} >
-            <span className="mic-size material-symbols-outlined text-primary " >
+            <span className="mic-size material-symbols-outlined text-info " >
               mic
             </span>
           </button>
-          <div className="audio-controls">{!isRecognizing ? buttonProps.text : isRecognizingText}</div>
-          <div className="">{isRecognizingText === '搜尋失敗' && isRecognizingText}</div>
+          <div className="audio-controls mic-tex-m text-white fs-3">{!isRecognizing ? buttonProps.text : isRecognizingText}</div>
+          <div className="text-white">{isRecognizingText === '搜尋失敗' && isRecognizingText}</div>
         </div>
       </div>
     </div>

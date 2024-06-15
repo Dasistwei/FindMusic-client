@@ -4,7 +4,8 @@ import { LocalStorage } from "../utils/LocalStorage"
 import { AuthContext } from "../context/authContext"
 
 const PhoneNavbar = () => {
-  const textColor = 'text-primary';
+  let lightMode = false
+  const thirdTextColor = lightMode ? 'text-primary' : 'text-info';
   const { isAuthenticate, setIsAuthenticate } = useContext(AuthContext)
 
   const handleSignOutClick = () => {
@@ -14,7 +15,7 @@ const PhoneNavbar = () => {
   return (
     <ul className='navbar-nav d-flex flex-row justify-content-evenly '>
       <li className='navbar-item '>
-        <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/'>
+        <NavLink className={({ isActive }) => { return `nav-link ${isActive ? thirdTextColor : ''}` }} to='/'>
           <span className="material-symbols-outlined phoneNav-icon-size">
             home
           </span>
@@ -22,7 +23,7 @@ const PhoneNavbar = () => {
         </NavLink>
       </li>
       <li className='navbar-item'>
-        <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/search'>
+        <NavLink className={({ isActive }) => { return `nav-link ${isActive ? thirdTextColor : ''}` }} to='/search'>
           <span className="material-symbols-outlined phoneNav-icon-size">
             search
           </span>
@@ -30,7 +31,7 @@ const PhoneNavbar = () => {
         </NavLink>
       </li>
       <li className='navbar-item'>
-        <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/sounds_search'>
+        <NavLink className={({ isActive }) => { return `nav-link ${isActive ? thirdTextColor : ''}` }} to='/sounds_search'>
           <span className="material-symbols-outlined phoneNav-icon-size">
             graphic_eq
           </span>
@@ -38,27 +39,13 @@ const PhoneNavbar = () => {
         </NavLink>
       </li>
       <li className='navbar-item'>
-        <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/collection'>
+        <NavLink className={({ isActive }) => { return `nav-link ${isActive ? thirdTextColor : ''}` }} to='/collection'>
           <span className="material-symbols-outlined phoneNav-icon-size">
             queue_music
           </span>
           <h5>播放清單</h5>
         </NavLink>
       </li>
-      {/* <li className='navbar-item'>
-        <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/likeList'>已按讚的歌曲</NavLink>
-      </li> */}
-      {/* <li className='navbar-item'>
-        {!isAuthenticate ?
-          <NavLink className={({ isActive }) => { return `nav-link ${isActive ? textColor : ''}` }} to='/sign_in'>登入</NavLink> :
-          <button className="btn btn-outline-none" onClick={handleSignOutClick}>登出</button>}
-      </li>
-      <li className='navbar-item'>
-        <NavLink className='nav-link text-success' to='/artist/:id'>歌手</NavLink>
-      </li>
-      <li className='navbar-item'>
-        <NavLink className='nav-link text-success' to='/track/:id'>歌曲</NavLink>
-      </li> */}
     </ul>
   )
 };

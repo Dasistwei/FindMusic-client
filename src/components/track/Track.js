@@ -40,14 +40,14 @@ export const Track = ({ track, setTrack, index, page, collectionId }) => {
             <img src={track.albumUrl} alt="album-logo" style={{ height: '64px', width: '64px' }} />
             <div className="ms-2">
               <div style={{ cursor: 'pointer' }} onClick={handlePlay}>{track.title}</div>
-              <div className="text-muted">{track.artists}</div>
+              <div className="text-secondary">{track.artists}</div>
             </div>
           </div>
         </td>
         <td>
         </td>
         <td>
-          <button className="btn btn-outline-primary" onClick={handleRemoveBtnClick}>移除</button>
+          <button className="btn btn-outline-info" onClick={handleRemoveBtnClick}>移除</button>
         </td>
       </tr>
     </>

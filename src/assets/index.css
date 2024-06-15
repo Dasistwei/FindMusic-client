@@ -1,11 +1,23 @@
 :root {
   --primary-color: #36e2ec;
-  --secondary-color: #609EC2;
+  /* --secondary-color: #609EC2; */
+  --secondary-color: #50D2E6;
   --progress-color: #6C757D;
   /* --font-size: 16px;
   --border-radius: 5px; */
 }
-
+.text-darkmode-secondary{
+  color: #36e2ec
+}
+.bg-darkmode-main{
+  background: #0C1321;
+}
+.bg-darkmode-side{
+  background: #0E1826;
+}
+.bg-darkmode-mic{
+  background: #192a42
+}
 
 html, body, #root, .App {
   height: 100%;
@@ -52,9 +64,10 @@ code {
 }
 
 .mic-btn {
-  background-color: rgb(177, 212, 232);
-  width: 15rem; /* 设置按钮的宽度 */
-  height: 15rem; /* 设置按钮的高度 */
+  /* background-color: rgb(177, 212, 232); */
+  background-color:#020307;
+  width: 18rem; /* 设置按钮的宽度 */
+  height: 18rem; /* 设置按钮的高度 */
   position: relative;
   z-index: 1;
 }
@@ -65,7 +78,8 @@ code {
   display: block;
   position: absolute;
   z-index: 0;
-  background-color: rgba(136, 157, 168, 0.2);
+  /* background-color: rgba(136, 157, 168, 0.2); */
+  background-color: rgba(14, 104, 148, 0.3);
   top: 0;
   left: 0;
   right: 0;
@@ -82,21 +96,24 @@ code {
   transition: 0.2s;
 }
 .mic-btn:hover:before {
-  width: calc(100% + 2rem); /* 动画效果的宽度 */
-  height: calc(100% + 2rem); /* 动画效果的高度 */
-  top: -1rem; /* 调整位置 */
-  left: -1rem; /* 调整位置 */
-  right: -1rem; /* 调整位置 */
-  bottom: -1rem; /* 调整位置 */
-}
-
-.mic-btn:hover:after {
   width: calc(100% + 4rem); /* 动画效果的宽度 */
   height: calc(100% + 4rem); /* 动画效果的高度 */
   top: -2rem; /* 调整位置 */
   left: -2rem; /* 调整位置 */
   right: -2rem; /* 调整位置 */
   bottom: -2rem; /* 调整位置 */
+}
+
+.mic-btn:hover:after {
+  width: calc(100% + 8rem); /* 动画效果的宽度 */
+  height: calc(100% + 8rem); /* 动画效果的高度 */
+  top: -4rem; /* 调整位置 */
+  left: -4rem; /* 调整位置 */
+  right: -4rem; /* 调整位置 */
+  bottom: -4rem; /* 调整位置 */
+}
+.mic-tex-m{
+  margin-top: 5rem;
 }
 .cursor{
   cursor: pointer;
@@ -179,7 +196,7 @@ code {
 .vol-bar input[type= "range"]{
   -webkit-appearance: none;
   appearance: none;
-  background:linear-gradient(to right, #609EC2 40%, #6C757D 40%);
+  background:linear-gradient(to right, var(--secondary-color) 40%, #6C757D 40%);
 }
 
 .vol-bar input[type="range"]::-webkit-slider-thumb {
@@ -222,6 +239,12 @@ swiper-slide .info {
   width: 100%;
 }
 
+
 .playerImg{
   width: 4rem;
+}
+.p-center{
+  top: 10%;
+  right: 0;
+  left: 0;
 }

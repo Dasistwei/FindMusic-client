@@ -303,7 +303,8 @@ $cyans: (
 $primary:       $ocean;
 $secondary:     $gray-600 !default;
 $success:       $green !default;
-$info:          $cyan !default;
+// $info:          $cyan !default;
+$info:          #50D2E6 !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
 $light:         $gray-100 !default;

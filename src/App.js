@@ -42,13 +42,21 @@ import { register } from 'swiper/element/bundle';
 register();
 function App() {
   const { isAuthenticate, setIsAuthenticate } = useContext(AuthContext)
+  let lightMode = false
+  const lightModeBorder = lightMode ? 'border' : '';
+  const backgroundColor = 'bg-darkmode-main'
+  const backgroundSide = 'bg-darkmode-side'
+  const mainTextColor = lightMode ? 'text-secondary' : 'text-secondary';
+  const secondTextColor = lightMode ? 'text-darkmode-secondary' : 'text-white';
   return (
-    <div className="App container-fluid text-secondary fw-bold bg-light">
+    <div className={`App container-fluid fw-bold ${backgroundColor} ${mainTextColor}`}>
       <div className="main-content row flex-grow-1">
-        <div className=" d-none d-md-block col-md-2 border navbar-container">
-          <Navbar />
+        <div className={`d-none d-md-block  col-md-2 position-relative fs-5 ${lightModeBorder} navbar-container ${backgroundSide} border-end border-2 border-dark`}>
+          <div className="position-absolute p-center">
+            <Navbar />
+          </div>
         </div>
-        <div className="col-md-10 border container content-container">
+        <div className={`col-md-10 ${lightModeBorder} container content-container`} style={{ height: "80vh" }}>
           <Routes>
             <Route path="/sign_in" element={<SignIn />}></Route>
             <Route path="/sign_up" element={<SignUp />}></Route>
@@ -79,13 +87,13 @@ function App() {
           </Routes>
         </div>
       </div>
-      <div className="row fixed-bottom bg-light">
+      <div className={`row fixed-bottom ${backgroundSide}`}>
         {isAuthenticate && (
-          <div className=" col-12 bottom-0 border">
+          <div className={`col-12 bottom-0 ${lightModeBorder} border-top border-2 border-dark`}>
             <Player />
           </div>
         )}
-        <div className="d-block d-md-none bottom-0 col-12">
+        <div className="d-block d-md-none bottom-0 col-12 border-top border-2 border-dark">
           <PhoneNavbar />
         </div>
       </div>
