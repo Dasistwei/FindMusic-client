@@ -3,12 +3,15 @@ import { useNavigate } from 'react-router-dom'
 import { TrackApi } from "../../Api/TrackApi"
 import { CollectionApi } from "../../Api/CollectionApi"
 import { LocalStorage } from '../../utils/LocalStorage';
-import { Link } from 'react-router-dom';
+
+
 export const Track = ({ track, setTrack, index, page, collectionId }) => {
 
   const navigate = useNavigate()
   const userToken = LocalStorage.getAuthToken()
+
   const handlePlay = () => {
+    console.log('track', track)
     setTrack(track);
     navigate(`/track/${track.uri}`)
   };

@@ -79,7 +79,6 @@ const TrackApi = {
     };
     return fetch(`${process.env.REACT_APP_SERVER_URL}/tracks/recentSearch`, requestOptions)
       .then((response) => response.json())
-      .then((result) => console.log(result))
       .catch((error) => console.error(error));
 
   },

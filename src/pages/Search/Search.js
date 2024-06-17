@@ -49,7 +49,7 @@ export default function Search() {
         ></Form.Control>
         <div className="flex-grow-1 my-2" style={{ overflowY: 'auto' }}>
           {searchResults && searchResults.map((track) => {
-            return <TrackSearchResults track={track} key={track.uri} setTrack={setTrack} url={track.preview_url} />;
+            return <TrackSearchResults key={track.uri} track={track} setTrack={setTrack} />;
           })}
         </div>
       </Container>

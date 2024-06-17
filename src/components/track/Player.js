@@ -12,6 +12,7 @@ export const Player = () => {
   const audioRef = useRef(null)
   const timeRef = useRef(null)
   const volumeRef = useRef(null)
+  const sourceRef = useRef(null)
 
   const progressRef = useRef(null)
   const intervalRef = useRef(null)
@@ -23,9 +24,15 @@ export const Player = () => {
   const thirdBgColor = lightMode ? 'bg-primary' : 'bg-info';
   useEffect(() => {
     audioRef.current.volume = volume / 10
-    // volumeRef.current.style = `linear-gradient(to right, #609EC2 ${volume * 10}%, #6C757D ${volume * 10}%)`;
   }, [])
 
+
+  useEffect(() => {
+    if (audioRef.current && chooseTrack.preview_url) {
+      audioRef.current.src = chooseTrack.preview_url; // 使用 React 的方式设置 src
+      audioRef.current.load(); // 重新加载音频
+    }
+  }, [chooseTrack]);
 
   useEffect(() => {
     if (isPlaying) {
@@ -71,6 +78,7 @@ export const Player = () => {
     let progress = volumeRef.current.value
     volumeRef.current.style.background = `linear-gradient(to right, #609EC2 ${progress * 10}%, #6C757D ${progress * 10}%)`;
     audioRef.current.volume = progress / 10
+
   }
   return (
     <>
@@ -101,20 +109,15 @@ export const Player = () => {
                 onPlay={handleAudioPlay}
                 onPause={handleAudioPause}
               >
-                <source src={chooseTrack.preview_url} type="audio/mpeg" />
+                <source src={chooseTrack.preview_url} type="audio/mpeg" ref={sourceRef} />
+                {/* <source type="audio/mpeg" ref={sourceRef} /> */}
                 Your browser does not support the audio element.
               </audio>
-              {/* <button className={`btn shadow-none ${secondTextColor}`} onClick={handleTogglePlayClick}>
-                {!isPlaying ? <i className="fa-solid fa-play fa-xl"></i> :
-                  <i className="fa-solid fa-pause fa-xl"></i>
-                }
-              </button> */}
+
               <div className="d-flex bar justify-content-between align-items-center ">
                 <span id="auidioStart" className={`flex-grow-1 ${secondTextColor}`} ref={timeRef}>0:00</span>
                 <div className=" flex-grow-10 me-3 ms-3 d-flex  align-items-center  w-100 position-relative bg-secondary ">
-                  {/* <input type="range" className="position-absolute" id="bar" min="0" max="29" /> */}
                   <div className={`bar2 ${thirdBgColor} position-relative`} ref={progressRef}>
-                    {/* <div className="dot bg-primary rounded-circle position-absolute"></div> */}
                   </div>
                 </div>
                 <span id="auidioStart" className={`flex-grow-1 ${secondTextColor}`}>0:29</span>

@@ -17,7 +17,7 @@ const Navbar = () => {
   return (
     <ul className='navbar-nav position-relative' style={{ height: '85vh' }}>
       <li className='navbar-item'>
-        <NavLink className={`nav-link fs-4 ${logoColor}`}>Find Music</NavLink>
+        <NavLink className={`nav-link fs-3 ${logoColor} tiny5-regular`}>Find Music</NavLink>
         {/* <span className="material-symbols-outlined phoneNav-icon-size">
           graphic_eq
         </span> */}
