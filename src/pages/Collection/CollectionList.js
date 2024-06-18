@@ -127,11 +127,11 @@ export default function CollectionList() {
                         :
                         <>
                           <button
-                            className='btn btn-outline-info me-4'
+                            className='btn btn-outline-warning me-4'
                             onClick={() => handleEditBtnClick(collection._id)}
                           >確定修改</button>
                           <button
-                            className='btn btn-outline-warning me-4'
+                            className='btn btn-outline-success me-4'
                             onClick={() => {
                               setEditInputs((prevEditValues => ({
                                 ...prevEditValues,

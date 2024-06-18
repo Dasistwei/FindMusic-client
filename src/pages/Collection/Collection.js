@@ -8,37 +8,45 @@ import { SearchContext } from '../../context/searchContext'
 export default function Collection() {
   const collectionId = window.location.href.split('/collection/').pop()
   const userToken = LocalStorage.getAuthToken()
-  const [tracks, setTracks] = useState([])
+  const [collection, setCollection] = useState([])
   const { setTrack } = useContext(SearchContext)
+
+  let lightMode = false
+  const secondTextColor = lightMode ? 'text-darkmode-secondary' : 'text-white';
+  const backgroundColor = lightMode ? 'bg-light' : 'bg-darkmode-main';
+
   useEffect(() => {
     CollectionApi.getCollection(userToken, collectionId)
       .then((response) => response.json())
       .then((result) => {
-        setTracks(result.data)
+        setCollection(result.data)
       })
       .catch((error) => console.error(error));
   }, [])
 
   return (
     <>
-      <div className='border d-flex flex-column'>
-        <div>Collection</div>
-        <table className="table table-light">
-          <thead>
-            <tr className=''>
-              <th scope="col">#</th>
-              <th scope="col">名稱</th>
-              <th scope="col"></th>
-              <th scope="col">修改</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tracks && tracks.map((track, index) => {
-              return <Track track={track} key={track.uri} setTrack={setTrack} url={track.preview_url} index={index} page='Collection' collectionId={collectionId} />
-            })}
-          </tbody>
-        </table>
+      <div className="row">
+        <div className={`d-flex flex-column col-12 ${secondTextColor}`}>
+          <h4>{collection.collectionName}</h4>
+          <table className={`${backgroundColor}`}>
+            <thead>
+              <tr className=''>
+                <th scope="col">#</th>
+                <th scope="col">名稱</th>
+                <th scope="col"></th>
+                <th scope="col">修改</th>
+              </tr>
+            </thead>
+            <tbody>
+              {collection.tracks && collection.tracks.map((track, index) => {
+                return <Track track={track} key={track.uri} setTrack={setTrack} url={track.preview_url} index={index} page='LikeList' />
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   )
+
 }
