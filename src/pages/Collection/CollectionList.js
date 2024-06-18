@@ -6,17 +6,31 @@ import { SearchContext } from '../../context/authContext'
 import { AuthContext } from "../../context/authContext"
 
 export default function CollectionList() {
-  const [isEdit, setIsEdit] = useState(false);
-  const [editValue, setEditValue] = useState('');
+
   const [name, setName] = useState('');
+
+  const [editInputs, setEditInputs] = useState({})
+
   const [collectionList, setCollectionList] = useState([]);
-  // const { setUserToken, userToken } = useContext(AuthContext)
+
   const userToken = LocalStorage.getAuthToken()
+
+  let lightMode = false
+  const mainTextColor = lightMode ? 'text-secondary' : 'text-secondary';
+  const secondTextColor = lightMode ? 'text-darkmode-secondary' : 'text-white';
+  const backgroundColor = lightMode ? 'bg-light' : 'bg-darkmode-main';
+
+
   useEffect(() => {
     CollectionApi.getCollections(userToken)
       .then((response) => response.json())
       .then((result) => {
         setCollectionList(result.data)
+        const initInputs = result.data.reduce((acc, collection) => {
+          acc[collection._id] = { isEdit: false, name: collection.name }
+          return acc
+        }, {})
+        setEditInputs(initInputs)
       })
       .catch((error) => console.error(error));
   }, [])
@@ -37,8 +51,8 @@ export default function CollectionList() {
     setName(e.target.value)
   }
   const handleEditBtnClick = (id) => {
-    console.log(userToken, editValue, id)
-    CollectionApi.editCollection(userToken, editValue, id)
+
+    CollectionApi.editCollection(userToken, editInputs[id].name, id)
       .then((response) => response.json())
       .then((result) => {
         window.location.reload()
@@ -54,8 +68,11 @@ export default function CollectionList() {
       })
       .catch((error) => console.error(error));
   }
-  const handleEditInputChange = (e) => {
-    setEditValue(e.target.value)
+  const handleEditInputChange = (e, id) => {
+    setEditInputs((prevEditValues => ({
+      ...prevEditValues,
+      [id]: { ...prevEditValues[id], name: e.target.value }
+    })))
   }
   return (
     <>
@@ -69,46 +86,69 @@ export default function CollectionList() {
           </div>
         </div>
       </div>
-      <table className="table table-light">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">名稱</th>
-            <th scope="col"></th>
-            <th scope="col">修改</th>
-          </tr>
-        </thead>
-        <tbody>
-          {collectionList && collectionList.map((collection, index) => {
-            return (
-              <tr key={collection._id}>
-                <th scope="row">{index + 1}</th>
-                <td>
-                  {!isEdit ?
-                    <Link to={`/collection/${collection._id}`}>{collection.name}</Link> :
-                    <input type="text" value={editValue} onChange={handleEditInputChange} />
-                  }
-                </td>
-                <td></td>
-                <td>
-                  {!isEdit ?
-                    <button onClick={() => {
-                      setIsEdit(true)
-                      setEditValue(collection.name)
-                    }}>編輯</button>
-                    :
-                    <>
-                      <button onClick={() => handleEditBtnClick(collection._id)}>確定修改</button>
-                      <button onClick={() => setIsEdit(false)}>取消</button>
-                    </>
-                  }
-                  <button onClick={() => handleDeleteBtnClick(collection._id)}>刪除</button>
-                </td>
+      <div className="row">
+        <div className={`d-flex flex-column col-12 ${secondTextColor}`}>
+          <table className={`${backgroundColor}`}>
+            <thead>
+              <tr className=''>
+                <th scope="col">#</th>
+                <th scope="col">名稱</th>
+                <th scope="col">修改</th>
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            </thead>
+            <tbody className='text-white'>
+              {collectionList && collectionList.map((collection, index) => {
+                return (
+                  <tr key={collection._id} className='m-2'>
+                    <th scope="row p-2">{index + 1}</th>
+                    <td className='p-2'>
+                      {!editInputs[collection._id].isEdit ?
+                        <Link className='text-decoration-none text-white' to={`/collection/${collection._id}`}>{collection.name}</Link> :
+                        <input className={`p-2 rounded ${backgroundColor} text-white border-white`} type="text" value={editInputs[collection._id].name} onChange={(e) => handleEditInputChange(e, collection._id)} />
+                      }
+                    </td>
+                    <td className='p-2'>
+                      {!editInputs[collection._id].isEdit ?
+                        <>
+                          <button onClick={() => {
+                            setEditInputs((prevEditValues => ({
+                              ...prevEditValues,
+                              [collection._id]: { ...prevEditValues[collection._id], isEdit: !prevEditValues[collection._id].isEdit }
+                            })))
+                          }}
+                            className='btn btn-outline-info me-4'
+                          >編輯</button>
+                          <button
+                            onClick={() => handleDeleteBtnClick(collection._id)}
+                            className='btn btn-outline-danger'
+                          >刪除</button>
+                        </>
+
+                        :
+                        <>
+                          <button
+                            className='btn btn-outline-info me-4'
+                            onClick={() => handleEditBtnClick(collection._id)}
+                          >確定修改</button>
+                          <button
+                            className='btn btn-outline-warning me-4'
+                            onClick={() => {
+                              setEditInputs((prevEditValues => ({
+                                ...prevEditValues,
+                                [collection._id]: { ...prevEditValues[collection._id], isEdit: !prevEditValues[collection._id].isEdit, name: collection.name }
+                              })))
+                            }}
+                          >取消</button>
+                        </>
+                      }
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </>
   )
 }
