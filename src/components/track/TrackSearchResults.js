@@ -15,11 +15,11 @@ export const TrackSearchResults = ({ track, setTrack }) => {
 
   };
   return (
-    <div className="m-2 d-flex align-items-center" style={{ cursor: 'pointer' }} onClick={handleTrackClick}>
+    <div className="m-2 d-flex align-items-center cursor" onClick={handleTrackClick}>
       <img src={track.albumUrl} alt="album-logo" style={{ height: '64px', width: '64px' }} />
       <div className="ms-2">
-        <div>{track.title}</div>
-        <div className="text-muted">{track.artists}</div>
+        <div className='text-white'>{track.title}</div>
+        <div className="text-secondary">{track.artists}</div>
       </div>
     </div>
   );

@@ -28,10 +28,10 @@ export default function Collection() {
     <>
       <div className="row">
         <div className={`d-flex flex-column col-12 ${secondTextColor}`}>
-          <h4>{collection.collectionName}</h4>
+          <h4 className='fs-4 m-3'>{collection.collectionName}</h4>
           <table className={`${backgroundColor}`}>
             <thead>
-              <tr className=''>
+              <tr className='border-bottom border-white'>
                 <th scope="col">#</th>
                 <th scope="col">名稱</th>
                 <th scope="col"></th>

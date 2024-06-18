@@ -19,7 +19,6 @@ const TrackApi = {
       body: raw,
       redirect: "follow"
     };
-
     return fetch(`${process.env.REACT_APP_SERVER_URL}/tracks/${trackId}/likes`, requestOptions)
   },
   userRemoveLike: (jwt_token, trackId) => {

@@ -40,9 +40,9 @@ export const Track = ({ track, setTrack, index, page, collectionId }) => {
         <th scope="row">{index + 1}</th>
         <td className=''>
           <div className="m-2 d-flex align-items-center" >
-            <img src={track.albumUrl} alt="album-logo" style={{ height: '64px', width: '64px' }} />
+            <img className='cursor' src={track.albumUrl} alt="album-logo" style={{ height: '64px', width: '64px' }} onClick={handlePlay} />
             <div className="ms-2">
-              <div style={{ cursor: 'pointer' }} onClick={handlePlay}>{track.title}</div>
+              <div className='cursor' onClick={handlePlay}>{track.title}</div>
               <div className="text-secondary">{track.artists}</div>
             </div>
           </div>

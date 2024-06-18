@@ -24,10 +24,10 @@ export const LikeList = () => {
   return (
     <div className="row">
       <div className={`d-flex flex-column col-12 ${secondTextColor}`}>
-        <div>已按讚的歌曲</div>
+        <div className='fs-4 m-3'>已按讚的歌曲</div>
         <table className={`${backgroundColor}`}>
           <thead>
-            <tr className=''>
+            <tr className='border-bottom border-white'>
               <th scope="col">#</th>
               <th scope="col">名稱</th>
               <th scope="col"></th>

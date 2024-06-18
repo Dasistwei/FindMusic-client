@@ -73,7 +73,6 @@ const spotifyApi = {
       redirect: "follow"
     };
 
-    // return fetch("https://api.spotify.com/v1/playlists/37i9dQZEVXbNG2KDcFcKOF?fields=tracks.items(track(artists(uri),name,uri,album(images),preview_url))\n", requestOptions)
     return fetch(`https://api.spotify.com/v1/playlists/37i9dQZEVXbNG2KDcFcKOF${fields}`, requestOptions)
       .then((response) => response.json())
   }
