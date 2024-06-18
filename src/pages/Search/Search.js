@@ -41,11 +41,7 @@ export default function Search() {
           onChange={(e) => {
             setSearch(e.target.value);
           }}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              console.log(search)
-            }
-          }}
+          className='mt-3'
         ></Form.Control>
         <div className="flex-grow-1 my-2" style={{ overflowY: 'auto' }}>
           {searchResults && searchResults.map((track) => {

@@ -57,8 +57,8 @@ const Navbar = () => {
           </div>}
       </li>
       <li className='navbar-item position-absolute bottom-0 w-100' style={{ fontSize: '0.5rem' }}>
-        <p className=''>此網站僅為個人作品練習，無任何營利或商業用途</p>
-        <p>© 2024 Find Music. All rights reserved.</p>
+        <span className='d-block'>此網站僅為個人作品練習，無任何營利或商業用途</span>
+        <span className='d-block mt-3'>© 2024 Find Music. All rights reserved.</span>
       </li>
     </ul>
   )
