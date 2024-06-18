@@ -56,8 +56,9 @@ const Navbar = () => {
             <span className='ms-2'>登出</span>
           </div>}
       </li>
-      <li className='navbar-item position-absolute bottom-0' style={{ fontSize: '0.5rem' }}>
-        <span className='ms-2'>此網站僅為個人作品練習，無任何營利或商業用途</span>
+      <li className='navbar-item position-absolute bottom-0 w-100' style={{ fontSize: '0.5rem' }}>
+        <p className=''>此網站僅為個人作品練習，無任何營利或商業用途</p>
+        <p>© 2024 Find Music. All rights reserved.</p>
       </li>
     </ul>
   )

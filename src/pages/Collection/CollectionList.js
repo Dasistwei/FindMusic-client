@@ -89,9 +89,9 @@ export default function CollectionList() {
       <div className="row">
         <div className={`d-flex flex-column col-12 ${secondTextColor}`}>
           <table className={`${backgroundColor}`}>
-            <thead>
-              <tr className=''>
-                <th scope="col">#</th>
+            <thead className=''>
+              <tr className='border-white border-bottom '>
+                <th scope="co">#</th>
                 <th scope="col">名稱</th>
                 <th scope="col">修改</th>
               </tr>
