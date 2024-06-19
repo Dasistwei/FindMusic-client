@@ -31,7 +31,9 @@ export default function Home() {
       .then((response) => response.data.join(','))
       .then((ids) => {
         spotifyApi.getTracks(accessToken, ids)
-          .then((result) => setResentSearch(CommonFunc.mappingToMusicsArray(result.tracks)))
+          .then((result) => {
+            setResentSearch(CommonFunc.mappingToMusicsArray(result.tracks))
+          })
           .catch((error) => console.error(error));
       })
   }, [accessToken])
