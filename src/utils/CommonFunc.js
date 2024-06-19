@@ -7,16 +7,26 @@
 // }
 const CommonFunc = {
   mappingToMusicsArray: (datas, type) => {
-    // console.log('datas', datas)
-    // const type = Object.entries(datas)[0][0] || type
     const values = Object.values(datas)[0].items || datas
-    // console.log('values', values)
+    const images = values.album.images ||
+      (() => { throw new Error(`Unsupported type: ${type}`) })();
+    const choosedAlbum = images[0]
+    if (typeof values === 'object') {
+      return {
+        artists: values.artists[0].name,
+        artistsUri: values.artists[0].uri,
+        title: values.name,
+        uri: values.uri,
+        albumUrl: choosedAlbum.url,
+        preview_url: values.preview_url,
+      }
+    }
     return values.map((value) => {
+      console.log('value', value)
       const track = (type === 'home') ? value.track : value
-      // console.log('track', track)
+      // console.log('images', track.album.images)
       const images = track.album.images ||
         (() => { throw new Error(`Unsupported type: ${type}`) })();
-
 
 
       // const descendAlbum = images.sort((a, b) => {

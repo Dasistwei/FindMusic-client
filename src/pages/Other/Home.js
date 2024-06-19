@@ -69,8 +69,8 @@ export default function Home() {
               <swiper-slide onClick={() => {
                 setTrack(album);
                 navigate(`/track/${album.uri}`)
-              }} key={album.uri}>
-                <img src={album.albumUrl} alt='album-logo' />
+              }} key={album.uri}                >
+                <img className="cursor" src={album.albumUrl} alt='album-logo' />
                 <div className="info">
                   <span className={`d-block ${secondTextColor}`}>{album.title}</span>
                   <span className={`d-block ${mainTextColor}`}>{album.artists}</span>
