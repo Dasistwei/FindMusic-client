@@ -71,13 +71,13 @@ code {
 }
 
 .mic-btn {
-  /* background-color: rgb(177, 212, 232); */
   background-color:#020307;
   width: 18rem; /* 设置按钮的宽度 */
   height: 18rem; /* 设置按钮的高度 */
   position: relative;
-  z-index: 1;
+  z-index: 10;
 }
+
 
 .mic-btn:after,
 .mic-btn:before {
@@ -97,10 +97,12 @@ code {
   /* transition: all 0.2s ease-in-out; 简化 transition 属性 */
 }
 .mic-btn:after{
-  transition: 0.4s;
+  /* transition: 0.4s; */
+  transition: 1s;
 }
 .mic-btn:before{
-  transition: 0.2s;
+  /* transition: 0.4s; */
+  transition: 1s;
 }
 .mic-btn:hover:before {
   width: calc(100% + 4rem); /* 动画效果的宽度 */
@@ -119,6 +121,55 @@ code {
   right: -4rem; /* 调整位置 */
   bottom: -4rem; /* 调整位置 */
 }
+
+/* ****************************** */
+/* ****************************** */
+.mic-btn-animate{
+  width: 18rem; /* 设置按钮的宽度 */
+  height: 18rem; /* 设置按钮的高度 */
+  background-color: rgba(14, 51, 70, 0.3);
+}
+
+/* 缩放动画 */
+.mic-btn-animate {
+  animation: scaleUp 1.5s infinite;
+}
+
+@keyframes scaleUp {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2); /* Scale up the button */
+  }
+}
+/* 缩放动画 */
+.mic-btn-animate2 {
+  animation: scaleUp2 1.5s infinite;
+}
+
+@keyframes scaleUp2 {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5); /* Scale up the button */
+  }
+}
+
+/* 调整伪元素 */
+.mic-btn-animate::before,
+.mic-btn-animate::after {
+  width: calc(100% + 8rem);
+  height: calc(100% + 8rem);
+  top: -4rem;
+  left: -4rem;
+  right: -4rem;
+  bottom: -4rem;
+}
+
+
+
 .mic-tex-m{
   margin-top: 5rem;
 }
