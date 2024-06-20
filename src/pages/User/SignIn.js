@@ -18,15 +18,9 @@ export default function SignIn() {
 
   useEffect(() => {
     const url = window.location.href
-    console.log('url', url)
-    console.log('!url.startsWith(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`)'
-      , !url.startsWith(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`))
-
-
     if (!url.startsWith(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`)) return
     const jwtToken = url.split(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`).pop()
     LocalStorage.setAuthToken(jwtToken)
-    console.log('jwtToken', jwtToken)
     setIsAuthenticate(true)
     navigate('/');
   }, [])
