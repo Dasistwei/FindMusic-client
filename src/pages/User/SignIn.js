@@ -23,10 +23,14 @@ export default function SignIn() {
     // LocalStorage.setAuthToken(jwtToken)
     // setIsAuthenticate(true)
     // navigate('/');
+
     const url = new URL(window.location.href);
+    if (!url.href.startsWith(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`)) return
     const jwtToken = url.searchParams.get("token");
+
     LocalStorage.setAuthToken(jwtToken)
     setIsAuthenticate(true)
+    navigate('/');
   }, [])
 
 
