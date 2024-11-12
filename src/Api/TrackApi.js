@@ -59,7 +59,6 @@ const TrackApi = {
     };
     return fetch(`${process.env.REACT_APP_SERVER_URL}/tracks/recentSearch`, requestOptions)
       .then((response) => response.json())
-
   },
   addRecentSearch: (jwt_token, trackId) => {
     const myHeaders = new Headers();

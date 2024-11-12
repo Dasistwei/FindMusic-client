@@ -34,10 +34,11 @@ export default function SoundsSearch() {
   useEffect(() => {
     if (!audio) return
     setIsRecognizingText('正在搜尋歌曲...')
+    // AudDApi.soundsSearch("https://p.scdn.co/mp3-preview/74f603e906ab7a5409cf2edc6dda326ebe7c1d49?cid=6d6c82e90319486a86b127fc46235b9e")
     AudDApi.soundsSearch(audio)
       .then(res => {
-        // console.log('api', res)
-        if (res.result === null) {
+        console.log('api', res)
+        if (res.result === null || res.status === "error") {
           setIsRecognizingText('搜尋失敗')
           setIsRecognizing(false)
           return
@@ -57,6 +58,7 @@ export default function SoundsSearch() {
         setIsRecognizing(false)
       })
   }, [audio])
+
 
   //取得錄音權限
   const getMicrophonePermissions = async () => {

@@ -1,5 +1,7 @@
 const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID
 const CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET
+const GET_TOKEN_URL = process.env.REACT_APP_SPOTIFY_GET_TOKEN_URL
+
 const fields = "?fields=tracks.items(track(artists(uri),name,uri,album(images),preview_url))\n"
 const spotifyApi = {
 
@@ -12,7 +14,7 @@ const spotifyApi = {
       body: `grant_type=client_credentials&client_id=` + CLIENT_ID + `&client_secret=` + CLIENT_SECRET
     };
 
-    return fetch(process.env.REACT_APP_SPOTIFY_GET_TOKEN_URL, requestOptions)
+    return fetch(GET_TOKEN_URL, requestOptions)
       .then(res => res.json())
   },
 

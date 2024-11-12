@@ -28,7 +28,7 @@ export default function Home() {
       .catch((error) => console.error(error));
 
     TrackApi.getRecentSearch(userToken)
-      .then((response) => response.data.reverse().join(','))
+      .then((response) => { if (!response.data) { return } else return response.data.reverse().join(',') })
       .then((ids) => {
         spotifyApi.getTracks(accessToken, ids)
           .then((result) => {

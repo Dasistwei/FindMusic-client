@@ -13,16 +13,20 @@ export default function SignIn() {
     type: ''
   })
 
-  const { isAuthenticate, setIsAuthenticate } = useContext(AuthContext)
+  const { isAuthenticate, setIsAuthenticate } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const url = window.location.href
-    if (!url.startsWith(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`)) return
-    const jwtToken = url.split(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`).pop()
+    // const url = window.location.href
+    // if (!url.startsWith(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`)) return
+    // const jwtToken = url.split(`${process.env.REACT_APP_CLIENT_URL}/sign_in?token=`).pop()
+    // LocalStorage.setAuthToken(jwtToken)
+    // setIsAuthenticate(true)
+    // navigate('/');
+    const url = new URL(window.location.href);
+    const jwtToken = url.searchParams.get("token");
     LocalStorage.setAuthToken(jwtToken)
     setIsAuthenticate(true)
-    navigate('/');
   }, [])
 
 
@@ -60,6 +64,7 @@ export default function SignIn() {
 
   const onSubmit = (data) => {
     const { email, password } = getValues()
+
     setLoadingBtn({
       isLoading: true,
       type: 'signIn'

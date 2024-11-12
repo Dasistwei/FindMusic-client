@@ -40,6 +40,7 @@ import { Counter } from "./features/counter/Counter";
 import { register } from 'swiper/element/bundle';
 // register Swiper custom elements
 register();
+
 function App() {
   const { isAuthenticate, setIsAuthenticate } = useContext(AuthContext)
   let lightMode = false

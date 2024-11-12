@@ -5,12 +5,16 @@ const RecorderApi = {
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${jwt_token}`);
     formData.append('audio', blob, 'recording.mp3');
+
     fetch(`${process.env.REACT_APP_SERVER_URL}/upload/sounds`, {
       method: 'POST',
       headers: myHeaders,
       body: formData
     }).then(res => res.json())
-      .then(data => setAudio(data.fileUrl))
+      .then(data => {
+        console.log(data)
+        setAudio(data.fileUrl)
+      })
       .catch(err => console.log(err))
   },
 }
